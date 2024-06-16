@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:gita/Data/model/api/ImageSearch/image_search_res.dart';
 import 'package:gita/Data/model/api/mini_apps_response.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:logger/logger.dart';
 
 import '../../../Constants/enums.dart';
 import '../../../Data/model/api/ImageSearch/pixabay_response.dart';
@@ -28,13 +29,27 @@ class SeriesPostCubit extends HydratedCubit<SeriesPostState> {
     required this.secureStorage,
   }) : super(SeriesPostState());
 
-  Future<void> fetchGitaPosts({required String chapter}) async {
+  Future<void> fetchGitaPosts({
+    required String chapter,
+    bool showLoading = false,
+  }) async {
     emit(state.copyWith(status: Status.loading));
     ApiResult<GitaPostResponse> categoriesResponse =
         await seriesPostRepository.fetchGitaPost(chapter: chapter);
 
     categoriesResponse.when(success: (GitaPostResponse data) async {
+      Map<int, List<GitaSloke>> tempSlokeList = {};
+      try {
+        tempSlokeList.addAll(state.allGitaSlokeList);
+        int chapter = int.tryParse(data.data?.chapter ?? "-1") ?? -1;
+        if (chapter != -1 && data.data?.gitaSloks != null) {
+          tempSlokeList[chapter] = data.data!.gitaSloks!;
+        }
+        Logger().i(tempSlokeList.length);
+      } catch (e) {}
+
       emit(state.copyWith(
+          allGitaSlokeList: tempSlokeList,
           status: Status.success,
           gitaSlokeList: data.data?.gitaSloks,
           chapter: data.data?.chapter,
@@ -42,6 +57,17 @@ class SeriesPostCubit extends HydratedCubit<SeriesPostState> {
     }, failure: (NetworkExceptions error) {
       emit(state.copyWith(status: Status.failure));
     });
+  }
+
+  void updateVariables({
+    int? totalSloke,
+    String? chapter,
+    List<GitaSloke>? gitaSlokeList,
+  }) {
+    emit(state.copyWith(
+        gitaSlokeList: gitaSlokeList ?? state.gitaSlokeList,
+        chapter: chapter ?? state.chapter,
+        totalSloke: totalSloke ?? state.totalSloke));
   }
 
   void updateState({List<String>? listOfImgSearchKeys}) {

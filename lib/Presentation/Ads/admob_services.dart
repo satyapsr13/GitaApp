@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdmobServices {
   static String? get bannerAdUnitId {
@@ -34,12 +34,12 @@ class AdmobServices {
     return null;
   }
 
-   static final BannerAdListener bannerAdListener =
-      BannerAdListener(onAdLoaded: (ad) {
-    log("**********Banner Add Loaded successfully************");
-  }, onAdFailedToLoad: (ad, error) {
-    log("**********Banner Add Loding error [$error]************");
-  }, onAdClicked: (ad) {
-    log("**********Banner Add Clicked by user************");
-  });
+  //  static final BannerAdListener bannerAdListener =
+  //     BannerAdListener(onAdLoaded: (ad) {
+  //   log("**********Banner Add Loaded successfully************");
+  // }, onAdFailedToLoad: (ad, error) {
+  //   log("**********Banner Add Loding error [$error]************");
+  // }, onAdClicked: (ad) {
+  //   log("**********Banner Add Clicked by user************");
+  // });
 }

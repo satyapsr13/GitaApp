@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
+// import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -84,21 +84,7 @@ class _PostWidgetState extends State<PostWidget> {
     } catch (e) {}
 
     return GestureDetector(
-      onLongPress: () {
-        AwesomeDialog(
-          context: context,
-          showCloseIcon: true,
-          dialogType: DialogType.info,
-          animType: AnimType.bottomSlide,
-          title: 'Post Info',
-          desc: 'Post Id:- ${widget.postWidgetData.postId}',
-          btnOkText: 'Watch Ads to support us.',
-          btnOkColor: Theme.of(context).primaryColor,
-          btnOkOnPress: () {
-            BlocProvider.of<AdmobCubit>(context).showAd();
-          },
-        ).show();
-      },
+      onLongPress: () {},
       child: BlocBuilder<PostCubit, PostState>(builder: (context, postState) {
         return Center(
           child: Column(
@@ -116,214 +102,35 @@ class _PostWidgetState extends State<PostWidget> {
                         clipBehavior: Clip.none,
                         children: [
                           Container(
-                              constraints: BoxConstraints(
-                                minWidth: mq.width - 30,
-                              ),
-                              child: LayoutBuilder(
-                                  builder: (context, constraints) {
-                                return Stack(
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    Container(
-                                      constraints: const BoxConstraints(
-                                        minHeight: 200,
-                                      ),
-                                      clipBehavior: Clip.hardEdge,
-                                      decoration: BoxDecoration(
-                                        borderRadius: postState.isFrameVisible
-                                            ? const BorderRadius.only(
-                                                topLeft: Radius.circular(10),
-                                                topRight: Radius.circular(10),
-                                              )
-                                            : const BorderRadius.all(
-                                                Radius.circular(10)),
-                                      ),
-                                      child: !widget.isOnlyForControll
-                                          ? widget.postWidgetData.imageLink
-                                                  .startsWith("http")
-                                              ? Image.network(
-                                                  widget
-                                                      .postWidgetData.imageLink,
-                                                  frameBuilder: ((context,
-                                                      child,
-                                                      frame,
-                                                      wasSynchronouslyLoaded) {
-                                                    return child;
-                                                  }),
-                                                  loadingBuilder:
-                                                      (BuildContext context,
-                                                          Widget child,
-                                                          ImageChunkEvent?
-                                                              loadingProgress) {
-                                                    if (loadingProgress ==
-                                                        null) {
-                                                      return child;
-                                                    }
-                                                    return Center(
-                                                        child: SizedBox(
-                                                      height: 100,
-                                                      width: 100,
-                                                      child:
-                                                          RishteyyShimmerLoader(
-                                                              mq: mq),
-                                                    ));
-                                                  },
-                                                  errorBuilder: (context, error,
-                                                          stackTrace) =>
-                                                      const Center(
-                                                          child: Text(
-                                                              "Please reload app")),
-                                                )
-                                              : Image.asset(widget
-                                                  .postWidgetData.imageLink)
-                                          : Stack(
-                                              children: [
-                                                Image.network(
-                                                  widget
-                                                      .postWidgetData.imageLink,
-                                                  frameBuilder: ((context,
-                                                      child,
-                                                      frame,
-                                                      wasSynchronouslyLoaded) {
-                                                    return child;
-                                                  }),
-                                                  loadingBuilder:
-                                                      (BuildContext context,
-                                                          Widget child,
-                                                          ImageChunkEvent?
-                                                              loadingProgress) {
-                                                    if (loadingProgress ==
-                                                        null) {
-                                                      return child;
-                                                    }
-                                                    return Center(
-                                                        child: SizedBox(
-                                                      height: 100,
-                                                      width: 100,
-                                                      child:
-                                                          RishteyyShimmerLoader(
-                                                              mq: mq),
-                                                    ));
-                                                  },
-                                                  errorBuilder: (context, error,
-                                                          stackTrace) =>
-                                                      const Center(
-                                                          child: Text(
-                                                              "Please reload app")),
-                                                ),
-                                                BackdropFilter(
-                                                  filter: ImageFilter.blur(
-                                                      sigmaX: 5, sigmaY: 5),
-                                                  child: Container(
-                                                    color: Colors
-                                                        .transparent, // Make sure to set transparent color
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                            constraints: BoxConstraints(
+                              minWidth: mq.width - 30,
+                            ),
+                            child: Container(
+                                constraints: const BoxConstraints(
+                                    // minHeight: 200,
                                     ),
-                                    BlocBuilder<StickerCubit, StickerState>(
-                                        builder: (context, stickerState) {
-                                      return (stickerState
-                                              .listOfActiveFrames.isEmpty)
-                                          ? FrameWidget(
-                                              isNoFrame: true,
-                                              frameDetails: FrameDetails(
-                                                imgLink:
-                                                    'assets/images/frames/15.png',
-                                                nameX: 5,
-                                                nameY: 55,
-                                                numberX: 5,
-                                                numberY: 82,
-                                                profileX: 75,
-                                                profileY: 60,
-                                                occupationX: 5,
-                                                occupationY: 70,
-                                                width: constraints.maxWidth,
-                                                radius: 40,
-                                                side: 200.0,
-                                                nameColor: '#000000',
-                                                numberColor: '#000000',
-                                                occupationColor: '#000000',
-                                              ))
-                                          : (widget.isOnlyForControll)
-                                              ? FrameWidget(
-                                                  frameDetails: FrameDetails(
-                                                  imgLink:
-                                                      'assets/images/frames/4.png',
-                                                  nameX: 5,
-                                                  nameY: 38,
-                                                  numberX: 5,
-                                                  numberY: 78,
-                                                  profileX: 75,
-                                                  profileY: 60,
-                                                  occupationX: 5,
-                                                  occupationY: 68,
-                                                  width: constraints.maxWidth,
-                                                  radius: 40,
-                                                  side: 200.0,
-                                                  nameColor: '#ffffff',
-                                                  numberColor: '#ffffff',
-                                                  occupationColor: '#ffffff',
-                                                ))
-                                              : BlocBuilder<PostCubit,
-                                                      PostState>(
-                                                  builder: (context, state) {
-                                                  Frame? f;
-                                                  if (stickerState
-                                                      .listOfActiveFrames
-                                                      .isNotEmpty) {
-                                                    f = stickerState
-                                                            .listOfActiveFrames[
-                                                        ((widget.index +
-                                                                DateTime.now()
-                                                                    .hour) %
-                                                            (stickerState
-                                                                .listOfActiveFrames
-                                                                .length))];
-                                                  }
-                                                  return FrameWidget(
-                                                      frameDetails: f == null
-                                                          ? FrameDetails(
-                                                              imgLink:
-                                                                  'assets/images/frames/15.png',
-                                                              nameX: 5,
-                                                              nameY: 55,
-                                                              numberX: 5,
-                                                              numberY: 82,
-                                                              profileX: 75,
-                                                              profileY: 60,
-                                                              occupationX: 5,
-                                                              occupationY: 70,
-                                                              width: constraints
-                                                                  .maxWidth,
-                                                              radius: 40,
-                                                              side: 200.0,
-                                                              nameColor:
-                                                                  '#ffffff',
-                                                              numberColor:
-                                                                  '#ffffff',
-                                                              occupationColor:
-                                                                  '#ffffff',
-                                                            )
-                                                          : frameToFrameDetails(
-                                                              f,
-                                                              constraints
-                                                                  .maxWidth));
-                                                });
-                                    })
-                                  ],
-                                );
-                              })),
-                          !postState.isDateVisible
-                              ? const SizedBox()
-                              : const Positioned(
-                                  top: 5,
-                                  left: 10,
-                                  child: EditorDateTagWidget(
-                                    isDisableTapping: true,
-                                    getRandomDateBG: true,
-                                  )),
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(
+                                  borderRadius: postState.isFrameVisible
+                                      ? const BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10),
+                                          bottomLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(10),
+                                        )
+                                      : const BorderRadius.all(
+                                          Radius.circular(10)),
+                                ),
+                                child: Image.network(
+                                    widget.postWidgetData.imageLink)),
+                          ),
+                          const Positioned(
+                              top: 5,
+                              left: 10,
+                              child: EditorDateTagWidget(
+                                isDisableTapping: true,
+                                getRandomDateBG: true,
+                              )),
                           Positioned(
                               top: 200,
                               left: rishteyyTagLeftPosition(
@@ -337,14 +144,14 @@ class _PostWidgetState extends State<PostWidget> {
                               ))
                         ],
                       ),
-                      widget.isOnlyForControll
-                          ? const SizedBox()
-                          : Visibility(
-                              visible: postState.isFrameVisible,
-                              child: Card(
-                                  elevation: 15,
-                                  child: SizedBox(height: extendedHeight - 4)),
-                            ),
+                      // widget.isOnlyForControll
+                      //     ? const SizedBox()
+                      //     : Visibility(
+                      //         visible: postState.isFrameVisible,
+                      //         child: Card(
+                      //             elevation: 15,
+                      //             child: SizedBox(height: extendedHeight - 4)),
+                      //       ),
                     ],
                   ),
                 ),
@@ -380,15 +187,13 @@ class _PostWidgetState extends State<PostWidget> {
             child: Row(
               children: [
                 removeAdsButton(context),
-                const Spacer(flex: 5),
-
-                editPostButton(
-                    data: postWidgetData,
-                    frameId: frameId,
-                    parentScreenName: widget.parentScreenName,
-                    context: context),
+                // const Spacer(flex: 5),
+                // editPostButton(
+                //     data: postWidgetData,
+                //     frameId: frameId,
+                //     parentScreenName: widget.parentScreenName,
+                //     context: context),
                 const Spacer(flex: 1),
-                
                 WhatsAppShareButton(
                   screenshotController1: screenshotController1,
                   postId: postWidgetData.postId,
@@ -406,13 +211,13 @@ class _PostWidgetState extends State<PostWidget> {
                 removeAdsButton(context),
                 const Spacer(flex: 10),
 
+                // // const Spacer(flex: 1),
+                // editPostButton(
+                //     data: postWidgetData,
+                //     parentScreenName: widget.parentScreenName,
+                //     context: context,
+                //     frameId: frameId),
                 // const Spacer(flex: 1),
-                editPostButton(
-                    data: postWidgetData,
-                    parentScreenName: widget.parentScreenName,
-                    context: context,
-                    frameId: frameId),
-                const Spacer(flex: 1),
                 WhatsAppShareButton(
                   screenshotController1: screenshotController1,
                   postId: postWidgetData.postId,
@@ -596,7 +401,7 @@ class WhatsAppShareButton extends StatelessWidget {
   final bool isEdited;
   // final PostWidgetModel;
   // Uint8List? _imageFile;
-  WhatsAppShareButton({
+  const WhatsAppShareButton({
     Key? key,
     required this.screenshotController1,
     required this.postId,
@@ -628,236 +433,237 @@ class WhatsAppShareButton extends StatelessWidget {
               if (userCubit.state.isPremiumUser == false) {
                 BlocProvider.of<AdmobCubit>(context).showAd();
               }
-              AwesomeDialog(
-                context: context,
-                animType: AnimType.bottomSlide,
-                dialogType: DialogType.noHeader,
-                dismissOnTouchOutside: false,
-                showCloseIcon: true,
-                title: tr("your_post_is_ready"),
-                titleTextStyle: const TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                ),
-                body: Column(
-                  children: [
-                    Text(
-                      tr("your_post_is_ready"),
-                      style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 5),
-                    SizedBox(child: Image.file(File(imagePath.path))),
-                    const SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        const Spacer(),
-                        Text(
-                          tr("add_your_profile_link"),
-                          style: const TextStyle(),
-                        ),
-                        CSwitch(
-                          onChange: (val) {
-                            BlocProvider.of<UserCubit>(context)
-                                .updateStateVariables(
-                                    isAddLinkDuringShare: val);
-                          },
-                        ),
-                        const Spacer(),
-                      ],
-                    ),
-                    const SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        PremiumWrapper(
-                          isPremiumContent: true,
-                          isPremiumUser:
-                              BlocProvider.of<UserCubit>(context, listen: false)
-                                  .state
-                                  .isPremiumUser,
-                          child: CColorButton(
-                            isPremium: false,
-                            buttonText: tr("download"),
-                            isBorderButton: true,
-                            icon: const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 5),
-                              child: Icon(
-                                Icons.get_app_rounded,
-                                color: AppColors.primaryColor,
-                              ),
-                            ),
-                            onTap: () async {
-                              if (userCubit.state.isPremiumUser == false) {
-                                showPremiumCustomDialogue(
-                                  context: context,
-                                  title: tr("premium_warning",
-                                      namedArgs: {"title": tr("feature")}),
-                                  onTap: (() {
-                                    nextScreenWithFadeAnimation(
-                                        context, const PremiumPlanScreen());
-                                  }),
-                                  mq: mq,
-                                );
-                              } else {
-                                String userName = userCubit.state.userName;
-                                String userNumber = userCubit.state.userNumber;
-                                String userId =
-                                    userCubit.state.userId.toString();
-                                bool isAddLinkDuringShare =
-                                    userCubit.state.isAddLinkDuringShare;
-                                String promotionLink = "";
+              // AwesomeDialog(
+              //   context: context,
+              //   animType: AnimType.bottomSlide,
+              //   dialogType: DialogType.noHeader,
+              //   dismissOnTouchOutside: false,
+              //   showCloseIcon: true,
+              //   title: tr("your_post_is_ready"),
+              //   titleTextStyle: const TextStyle(
+              //     fontSize: 20,
+              //     color: Colors.black,
+              //   ),
+              //   body: Column(
+              //     children: [
+              //       Text(
+              //         tr("your_post_is_ready"),
+              //         style: const TextStyle(
+              //             fontSize: 20,
+              //             color: Colors.black,
+              //             fontWeight: FontWeight.bold),
+              //       ),
+              //       const SizedBox(height: 5),
+              //       SizedBox(child: Image.file(File(imagePath.path))),
+              //       const SizedBox(height: 15),
+              //       Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //         children: [
+              //           const Spacer(),
+              //           Text(
+              //             tr("add_your_profile_link"),
+              //             style: const TextStyle(),
+              //           ),
+              //           CSwitch(
+              //             onChange: (val) {
+              //               BlocProvider.of<UserCubit>(context)
+              //                   .updateStateVariables(
+              //                       isAddLinkDuringShare: val);
+              //             },
+              //           ),
+              //           const Spacer(),
+              //         ],
+              //       ),
+              //       const SizedBox(height: 15),
+              //       Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //         children: [
+              //           PremiumWrapper(
+              //             isPremiumContent: true,
+              //             isPremiumUser:
+              //                 BlocProvider.of<UserCubit>(context, listen: false)
+              //                     .state
+              //                     .isPremiumUser,
+              //             child: CColorButton(
+              //               isPremium: false,
+              //               buttonText: tr("download"),
+              //               isBorderButton: true,
+              //               icon: const Padding(
+              //                 padding: EdgeInsets.symmetric(horizontal: 5),
+              //                 child: Icon(
+              //                   Icons.get_app_rounded,
+              //                   color: AppColors.primaryColor,
+              //                 ),
+              //               ),
+              //               onTap: () async {
+              //                 if (userCubit.state.isPremiumUser == false) {
+              //                   showPremiumCustomDialogue(
+              //                     context: context,
+              //                     title: tr("premium_warning",
+              //                         namedArgs: {"title": tr("feature")}),
+              //                     onTap: (() {
+              //                       nextScreenWithFadeAnimation(
+              //                           context, const PremiumPlanScreen());
+              //                     }),
+              //                     mq: mq,
+              //                   );
+              //                 } else {
+              //                   String userName = userCubit.state.userName;
+              //                   String userNumber = userCubit.state.userNumber;
+              //                   String userId =
+              //                       userCubit.state.userId.toString();
+              //                   bool isAddLinkDuringShare =
+              //                       userCubit.state.isAddLinkDuringShare;
+              //                   String promotionLink = "";
 
-                                removeDownloadKeysInPathTracker();
-                                pathTracker.add("download");
-                                try {
-                                  bool? res = await GallerySaver.saveImage(
-                                    imagePath.path,
-                                    albumName: "Rishteyy",
-                                  );
+              //                   removeDownloadKeysInPathTracker();
+              //                   pathTracker.add("download");
+              //                   try {
+              //                     bool? res = await GallerySaver.saveImage(
+              //                       imagePath.path,
+              //                       albumName: "Rishteyy",
+              //                     );
 
-                                  toast(tr("downloaded_successfully"));
-                                  if (res != true) {
-                                    BlocProvider.of<UserCubit>(context)
-                                        .sendRatingFeedback(
-                                            message:
-                                                'Download Error in home screen:- $res',
-                                            reason: GErrorVar.errorHomeScreen);
-                                  }
-                                  if (isEdited) {
-                                    BlocProvider.of<PostCubit>(context)
-                                        .sendImageToTelegramEditGroup(
-                                            postId: postId,
-                                            isPremium:
-                                                userCubit.state.isPremiumUser,
-                                            imagePath: imagePath.path,
-                                            userName: userName,
-                                            number: userNumber,
-                                            promotionLink: promotionLink,
-                                            withLinkShare: isAddLinkDuringShare,
-                                            userId: userId);
-                                  } else {
-                                    BlocProvider.of<PostCubit>(context)
-                                        .sendImageToTelegram(
-                                            postId: postId,
-                                            isPremium:
-                                                userCubit.state.isPremiumUser,
-                                            imagePath: imagePath.path,
-                                            userName: userName,
-                                            number: userNumber,
-                                            promotionLink: promotionLink,
-                                            withLinkShare: isAddLinkDuringShare,
-                                            userId: userId);
-                                  }
+              //                     toast(tr("downloaded_successfully"));
+              //                     if (res != true) {
+              //                       BlocProvider.of<UserCubit>(context)
+              //                           .sendRatingFeedback(
+              //                               message:
+              //                                   'Download Error in home screen:- $res',
+              //                               reason: GErrorVar.errorHomeScreen);
+              //                     }
+              //                     if (isEdited) {
+              //                       BlocProvider.of<PostCubit>(context)
+              //                           .sendImageToTelegramEditGroup(
+              //                               postId: postId,
+              //                               isPremium:
+              //                                   userCubit.state.isPremiumUser,
+              //                               imagePath: imagePath.path,
+              //                               userName: userName,
+              //                               number: userNumber,
+              //                               promotionLink: promotionLink,
+              //                               withLinkShare: isAddLinkDuringShare,
+              //                               userId: userId);
+              //                     } else {
+              //                       BlocProvider.of<PostCubit>(context)
+              //                           .sendImageToTelegram(
+              //                               postId: postId,
+              //                               isPremium:
+              //                                   userCubit.state.isPremiumUser,
+              //                               imagePath: imagePath.path,
+              //                               userName: userName,
+              //                               number: userNumber,
+              //                               promotionLink: promotionLink,
+              //                               withLinkShare: isAddLinkDuringShare,
+              //                               userId: userId);
+              //                     }
 
-                                  Navigator.pop(context);
-                                } catch (e) {
-                                  toast("${tr("downloaded_successfully")}.");
-                                  BlocProvider.of<UserCubit>(context)
-                                      .sendRatingFeedback(
-                                    message:
-                                        'Download Error in home screen:- $e',
-                                    reason: GErrorVar.errorHomeScreen,
-                                  );
-                                }
-                              }
-                            },
-                            buttonColor: AppColors.primaryColor,
-                          ),
-                        ),
-                        CColorButton(
-                          buttonText: tr("share_now"),
-                          icon: const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 5),
-                            child: FaIcon(
-                              FontAwesomeIcons.share,
-                              color: Colors.white,
-                              size: 20,
-                            ),
-                          ),
-                          buttonColor: AppColors.primaryColor,
-                          onTap: () async {
-                            removeDownloadKeysInPathTracker();
+              //                     Navigator.pop(context);
+              //                   } catch (e) {
+              //                     toast("${tr("downloaded_successfully")}.");
+              //                     BlocProvider.of<UserCubit>(context)
+              //                         .sendRatingFeedback(
+              //                       message:
+              //                           'Download Error in home screen:- $e',
+              //                       reason: GErrorVar.errorHomeScreen,
+              //                     );
+              //                   }
+              //                 }
+              //               },
+              //               buttonColor: AppColors.primaryColor,
+              //             ),
+              //           ),
+              //           CColorButton(
+              //             buttonText: tr("share_now"),
+              //             icon: const Padding(
+              //               padding: EdgeInsets.symmetric(horizontal: 5),
+              //               child: FaIcon(
+              //                 FontAwesomeIcons.share,
+              //                 color: Colors.white,
+              //                 size: 20,
+              //               ),
+              //             ),
+              //             buttonColor: AppColors.primaryColor,
+              //             onTap: () async {
+              //               removeDownloadKeysInPathTracker();
 
-                            String userName = userCubit.state.userName;
-                            String userNumber = userCubit.state.userNumber;
-                            String userId = userCubit.state.userId.toString();
-                            bool isAddLinkDuringShare =
-                                userCubit.state.isAddLinkDuringShare;
-                            String promotionLink = "";
-                            if (parentScreenName != null) {
-                              promotionLink = getPromotionLinkForTags(
-                                  userName: userName,
-                                  tag: parentScreenName!,
-                                  userId: userId,
-                                  postId: postId);
-                            } else {
-                              promotionLink = getNewPromotionLink(
-                                  userName: userName,
-                                  date: BlocProvider.of<PostCubit>(context,
-                                          listen: false)
-                                      .state
-                                      .hindiDate,
-                                  userId: userId,
-                                  postId: postId);
-                            }
-                            if (isAddLinkDuringShare == false) {
-                              promotionLink = "";
-                            }
-                            await Share.shareFiles([imagePath.path],
-                                text: promotionLink);
+              //               String userName = userCubit.state.userName;
+              //               String userNumber = userCubit.state.userNumber;
+              //               String userId = userCubit.state.userId.toString();
+              //               bool isAddLinkDuringShare =
+              //                   userCubit.state.isAddLinkDuringShare;
+              //               String promotionLink = "";
+              //               if (parentScreenName != null) {
+              //                 promotionLink = getPromotionLinkForTags(
+              //                     userName: userName,
+              //                     tag: parentScreenName!,
+              //                     userId: userId,
+              //                     postId: postId);
+              //               } else {
+              //                 promotionLink = getNewPromotionLink(
+              //                     userName: userName,
+              //                     date: BlocProvider.of<PostCubit>(context,
+              //                             listen: false)
+              //                         .state
+              //                         .hindiDate,
+              //                     userId: userId,
+              //                     postId: postId);
+              //               }
+              //               if (isAddLinkDuringShare == false) {
+              //                 promotionLink = "";
+              //               }
+              //               await Share.shareFiles([imagePath.path],
+              //                   text: promotionLink);
 
-                            if (postWidgetData.imageLink.startsWith("htt")) {
-                              BlocProvider.of<UserCubit>(context)
-                                  .savedPostDbOperations(
-                                      isAddOperation: true,
-                                      postIdToAdd: int.tryParse(postWidgetData
-                                              .postId
-                                              .toString()) ??
-                                          0,
-                                      postLinkToAdd: postWidgetData.imageLink);
-                            }
-                            BlocProvider.of<PostCubit>(context)
-                                .sendShareResponseToBackendAdmin(postId,
-                                    userId: userId,
-                                    userName: userName,
-                                    userNumber: userNumber);
+              //               if (postWidgetData.imageLink.startsWith("htt")) {
+              //                 BlocProvider.of<UserCubit>(context)
+              //                     .savedPostDbOperations(
+              //                         isAddOperation: true,
+              //                         postIdToAdd: int.tryParse(postWidgetData
+              //                                 .postId
+              //                                 .toString()) ??
+              //                             0,
+              //                         postLinkToAdd: postWidgetData.imageLink);
+              //               }
+              //               BlocProvider.of<PostCubit>(context)
+              //                   .sendShareResponseToBackendAdmin(postId,
+              //                       userId: userId,
+              //                       userName: userName,
+              //                       userNumber: userNumber);
 
-                            if (isEdited) {
-                              BlocProvider.of<PostCubit>(context)
-                                  .sendImageToTelegramEditGroup(
-                                      postId: postId,
-                                      isPremium: userCubit.state.isPremiumUser,
-                                      imagePath: imagePath.path,
-                                      userName: userName,
-                                      number: userNumber,
-                                      promotionLink: promotionLink,
-                                      withLinkShare: isAddLinkDuringShare,
-                                      userId: userId);
-                            } else {
-                              BlocProvider.of<PostCubit>(context)
-                                  .sendImageToTelegram(
-                                      postId: postId,
-                                      isPremium: userCubit.state.isPremiumUser,
-                                      imagePath: imagePath.path,
-                                      userName: userName,
-                                      number: userNumber,
-                                      promotionLink: promotionLink,
-                                      withLinkShare: isAddLinkDuringShare,
-                                      userId: userId);
-                            }
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                  ],
-                ),
-              ).show();
+              //               if (isEdited) {
+              //                 BlocProvider.of<PostCubit>(context)
+              //                     .sendImageToTelegramEditGroup(
+              //                         postId: postId,
+              //                         isPremium: userCubit.state.isPremiumUser,
+              //                         imagePath: imagePath.path,
+              //                         userName: userName,
+              //                         number: userNumber,
+              //                         promotionLink: promotionLink,
+              //                         withLinkShare: isAddLinkDuringShare,
+              //                         userId: userId);
+              //               } else {
+              //                 BlocProvider.of<PostCubit>(context)
+              //                     .sendImageToTelegram(
+              //                         postId: postId,
+              //                         isPremium: userCubit.state.isPremiumUser,
+              //                         imagePath: imagePath.path,
+              //                         userName: userName,
+              //                         number: userNumber,
+              //                         promotionLink: promotionLink,
+              //                         withLinkShare: isAddLinkDuringShare,
+              //                         userId: userId);
+              //               }
+              //               Navigator.pop(context);
+              //             },
+              //           ),
+              //         ],
+              //       ),
+              //       const SizedBox(height: 30),
+              //     ],
+              //   ),
+              // ).show();
+
             } else {
               // Logg
             }
@@ -913,7 +719,7 @@ class DownloadButton extends StatelessWidget {
   final bool isDownloadPremium;
   // final PostWidgetModel;
   // Uint8List? _imageFile;
-  DownloadButton({
+  const DownloadButton({
     Key? key,
     required this.screenshotController1,
     required this.postId,
@@ -944,160 +750,161 @@ class DownloadButton extends StatelessWidget {
               if (userCubit.state.isPremiumUser == false) {
                 BlocProvider.of<AdmobCubit>(context).showAd();
               }
-              AwesomeDialog(
-                context: context,
-                animType: AnimType.bottomSlide,
-                dialogType: DialogType.noHeader,
-                dismissOnTouchOutside: false,
-                showCloseIcon: true,
-                title: tr("your_post_is_ready"),
-                titleTextStyle: const TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                ),
-                body: Column(
-                  children: [
-                    Text(
-                      tr("your_post_is_ready"),
-                      style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 5),
-                    SizedBox(child: Image.file(File(imagePath.path))),
-                    const SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CColorButton(
-                          isPremium: isDownloadPremium,
-                          buttonText: tr("download"),
-                          isBorderButton: true,
-                          icon: const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 5),
-                            child: Icon(
-                              Icons.get_app_rounded,
-                              color: AppColors.primaryColor,
-                            ),
-                          ),
-                          onTap: () async {
-                            if (userCubit.state.isPremiumUser == false) {
-                              showPremiumCustomDialogue(
-                                context: context,
-                                title: tr("premium_warning",
-                                    namedArgs: {"title": tr("feature")}),
-                                onTap: (() {
-                                  nextScreenWithFadeAnimation(
-                                      context, const PremiumPlanScreen());
-                                }),
-                                mq: mq,
-                              );
-                            } else {
-                              String userName = userCubit.state.userName;
-                              String userNumber = userCubit.state.userNumber;
-                              String userId = userCubit.state.userId.toString();
-                              bool isAddLinkDuringShare =
-                                  userCubit.state.isAddLinkDuringShare;
-                              String promotionLink = "";
+              // AwesomeDialog(
+              //   context: context,
+              //   animType: AnimType.bottomSlide,
+              //   dialogType: DialogType.noHeader,
+              //   dismissOnTouchOutside: false,
+              //   showCloseIcon: true,
+              //   title: tr("your_post_is_ready"),
+              //   titleTextStyle: const TextStyle(
+              //     fontSize: 20,
+              //     color: Colors.black,
+              //   ),
+              //   body: Column(
+              //     children: [
+              //       Text(
+              //         tr("your_post_is_ready"),
+              //         style: const TextStyle(
+              //             fontSize: 20,
+              //             color: Colors.black,
+              //             fontWeight: FontWeight.bold),
+              //       ),
+              //       const SizedBox(height: 5),
+              //       SizedBox(child: Image.file(File(imagePath.path))),
+              //       const SizedBox(height: 15),
+              //       Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //         children: [
+              //           CColorButton(
+              //             isPremium: isDownloadPremium,
+              //             buttonText: tr("download"),
+              //             isBorderButton: true,
+              //             icon: const Padding(
+              //               padding: EdgeInsets.symmetric(horizontal: 5),
+              //               child: Icon(
+              //                 Icons.get_app_rounded,
+              //                 color: AppColors.primaryColor,
+              //               ),
+              //             ),
+              //             onTap: () async {
+              //               if (userCubit.state.isPremiumUser == false) {
+              //                 showPremiumCustomDialogue(
+              //                   context: context,
+              //                   title: tr("premium_warning",
+              //                       namedArgs: {"title": tr("feature")}),
+              //                   onTap: (() {
+              //                     nextScreenWithFadeAnimation(
+              //                         context, const PremiumPlanScreen());
+              //                   }),
+              //                   mq: mq,
+              //                 );
+              //               } else {
+              //                 String userName = userCubit.state.userName;
+              //                 String userNumber = userCubit.state.userNumber;
+              //                 String userId = userCubit.state.userId.toString();
+              //                 bool isAddLinkDuringShare =
+              //                     userCubit.state.isAddLinkDuringShare;
+              //                 String promotionLink = "";
 
-                              removeDownloadKeysInPathTracker();
-                              pathTracker.add("download");
-                              try {
-                                bool? res = await GallerySaver.saveImage(
-                                  imagePath.path,
-                                  albumName: "Rishteyy",
-                                );
+              //                 removeDownloadKeysInPathTracker();
+              //                 pathTracker.add("download");
+              //                 try {
+              //                   bool? res = await GallerySaver.saveImage(
+              //                     imagePath.path,
+              //                     albumName: "Rishteyy",
+              //                   );
 
-                                toast(tr("downloaded_successfully"));
-                                if (res != true) {
-                                  BlocProvider.of<UserCubit>(context)
-                                      .sendRatingFeedback(
-                                          message:
-                                              'Download Error in home screen:- $res',
-                                          reason: GErrorVar.errorHomeScreen);
-                                }
-                                BlocProvider.of<PostCubit>(context)
-                                    .sendImageToTelegramEditGroup(
-                                        postId: postId,
-                                        isPremium:
-                                            userCubit.state.isPremiumUser,
-                                        imagePath: imagePath.path,
-                                        userName: userName,
-                                        number: userNumber,
-                                        channelName: telChannelName,
-                                        // promotionLink: promotionLink,
-                                        withLinkShare: isAddLinkDuringShare,
-                                        userId: userId);
+              //                   toast(tr("downloaded_successfully"));
+              //                   if (res != true) {
+              //                     BlocProvider.of<UserCubit>(context)
+              //                         .sendRatingFeedback(
+              //                             message:
+              //                                 'Download Error in home screen:- $res',
+              //                             reason: GErrorVar.errorHomeScreen);
+              //                   }
+              //                   BlocProvider.of<PostCubit>(context)
+              //                       .sendImageToTelegramEditGroup(
+              //                           postId: postId,
+              //                           isPremium:
+              //                               userCubit.state.isPremiumUser,
+              //                           imagePath: imagePath.path,
+              //                           userName: userName,
+              //                           number: userNumber,
+              //                           channelName: telChannelName,
+              //                           // promotionLink: promotionLink,
+              //                           withLinkShare: isAddLinkDuringShare,
+              //                           userId: userId);
 
-                                Navigator.pop(context);
-                              } catch (e) {
-                                toast("${tr("downloaded_successfully")}.");
-                                BlocProvider.of<UserCubit>(context)
-                                    .sendRatingFeedback(
-                                  message: 'Download Error in home screen:- $e',
-                                  reason: GErrorVar.errorHomeScreen,
-                                );
-                              }
-                            }
-                          },
-                          buttonColor: AppColors.primaryColor,
-                        ),
-                        CColorButton(
-                          buttonText: tr("share_now"),
-                          icon: const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 5),
-                            child: FaIcon(
-                              FontAwesomeIcons.share,
-                              color: Colors.white,
-                              size: 20,
-                            ),
-                          ),
-                          buttonColor: AppColors.primaryColor,
-                          onTap: () async {
-                            removeDownloadKeysInPathTracker();
+              //                   Navigator.pop(context);
+              //                 } catch (e) {
+              //                   toast("${tr("downloaded_successfully")}.");
+              //                   BlocProvider.of<UserCubit>(context)
+              //                       .sendRatingFeedback(
+              //                     message: 'Download Error in home screen:- $e',
+              //                     reason: GErrorVar.errorHomeScreen,
+              //                   );
+              //                 }
+              //               }
+              //             },
+              //             buttonColor: AppColors.primaryColor,
+              //           ),
+              //           CColorButton(
+              //             buttonText: tr("share_now"),
+              //             icon: const Padding(
+              //               padding: EdgeInsets.symmetric(horizontal: 5),
+              //               child: FaIcon(
+              //                 FontAwesomeIcons.share,
+              //                 color: Colors.white,
+              //                 size: 20,
+              //               ),
+              //             ),
+              //             buttonColor: AppColors.primaryColor,
+              //             onTap: () async {
+              //               removeDownloadKeysInPathTracker();
 
-                            String userName = userCubit.state.userName;
-                            String userNumber = userCubit.state.userNumber;
-                            String userId = userCubit.state.userId.toString();
-                            bool isAddLinkDuringShare =
-                                userCubit.state.isAddLinkDuringShare;
-                            String promotionLink = "";
-                            {
-                              promotionLink = getOldPromotionLink();
-                            }
-                            if (isAddLinkDuringShare == false) {
-                              promotionLink = "";
-                            }
-                            await Share.shareFiles([imagePath.path],
-                                text: promotionLink);
+              //               String userName = userCubit.state.userName;
+              //               String userNumber = userCubit.state.userNumber;
+              //               String userId = userCubit.state.userId.toString();
+              //               bool isAddLinkDuringShare =
+              //                   userCubit.state.isAddLinkDuringShare;
+              //               String promotionLink = "";
+              //               {
+              //                 promotionLink = getOldPromotionLink();
+              //               }
+              //               if (isAddLinkDuringShare == false) {
+              //                 promotionLink = "";
+              //               }
+              //               await Share.shareFiles([imagePath.path],
+              //                   text: promotionLink);
 
-                            BlocProvider.of<PostCubit>(context)
-                                .sendShareResponseToBackendAdmin(postId,
-                                    userId: userId,
-                                    userName: userName,
-                                    userNumber: userNumber);
+              //               BlocProvider.of<PostCubit>(context)
+              //                   .sendShareResponseToBackendAdmin(postId,
+              //                       userId: userId,
+              //                       userName: userName,
+              //                       userNumber: userNumber);
 
-                            BlocProvider.of<PostCubit>(context)
-                                .sendImageToTelegramEditGroup(
-                                    postId: postId,
-                                    isPremium: userCubit.state.isPremiumUser,
-                                    imagePath: imagePath.path,
-                                    userName: userName,
-                                    channelName: telChannelName,
-                                    number: userNumber,
-                                    promotionLink: promotionLink,
-                                    withLinkShare: isAddLinkDuringShare,
-                                    userId: userId);
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                  ],
-                ),
-              ).show();
+              //               BlocProvider.of<PostCubit>(context)
+              //                   .sendImageToTelegramEditGroup(
+              //                       postId: postId,
+              //                       isPremium: userCubit.state.isPremiumUser,
+              //                       imagePath: imagePath.path,
+              //                       userName: userName,
+              //                       channelName: telChannelName,
+              //                       number: userNumber,
+              //                       promotionLink: promotionLink,
+              //                       withLinkShare: isAddLinkDuringShare,
+              //                       userId: userId);
+              //               Navigator.pop(context);
+              //             },
+              //           ),
+              //         ],
+              //       ),
+              //       const SizedBox(height: 30),
+              //     ],
+              //   ),
+              // ).show();
+
             } else {
               // Logg
             }

@@ -8,6 +8,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gita/Presentation/Screens/SeriesPosts/GitsGyanScreens/gita_sloke_main_screen.dart';
 import '../../Constants/colors.dart';
 import '../../Constants/constants.dart';
 import '../../Constants/locations.dart';
@@ -45,11 +46,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
         (value.countryCode != null ? '_${value.countryCode}' : '');
     await _secureStorage.persistLocale(localeString);
 
-    nextScreenCloseOthers(
-        context,
-        widget.isOnlySwitchLanguage != null
-            ? const NavigationWrapper()
-            : const LoginScreen());
+    nextScreenCloseOthers(context, const GitagyanMainScreen());
   }
 
   @override

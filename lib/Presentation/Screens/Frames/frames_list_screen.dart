@@ -1,8 +1,8 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+// import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart'; 
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../Constants/locations.dart';
 import '../../../Data/model/api/frames_response.dart';
@@ -76,17 +76,7 @@ class FramesListScreen extends StatelessWidget {
                                   if (stickerState.listOfActiveFrames.length >=
                                           4 &&
                                       (isPremiumUser == false)) {
-                                    AwesomeDialog(
-                                      context: context,
-                                      showCloseIcon: true,
-                                      dialogType: DialogType.info,
-                                      animType: AnimType.bottomSlide,
-                                      title: tr('sticker_select_text'),
-                                      btnOkText: 'Ok',
-                                      btnOkColor:
-                                          Theme.of(context).primaryColor,
-                                      btnOkOnPress: () {},
-                                    ).show();
+                                     
                                   } else {
                                     BlocProvider.of<StickerCubit>(context)
                                         .frameActiveInactiveOperations(

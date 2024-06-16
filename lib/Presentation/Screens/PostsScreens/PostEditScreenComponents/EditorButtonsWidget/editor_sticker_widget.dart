@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
+// // import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 // import 'package:flutter/foundation.dart';
@@ -242,27 +242,27 @@ class _EditorStickerWidgetState extends State<EditorStickerWidget>
                                                                       (isPremiumUser
                                                                           ? 10
                                                                           : 5)) {
-                                                                    AwesomeDialog(
-                                                                      context:
-                                                                          context,
-                                                                      showCloseIcon:
-                                                                          true,
-                                                                      dialogType:
-                                                                          DialogType
-                                                                              .infoReverse,
-                                                                      animType:
-                                                                          AnimType
-                                                                              .bottomSlide,
-                                                                      title: tr(
-                                                                          "user_sticker_add_warning"),
-                                                                      btnOkText:
-                                                                          'Ok',
-                                                                      btnOkColor:
-                                                                          Theme.of(context)
-                                                                              .primaryColor,
-                                                                      btnOkOnPress:
-                                                                          () {},
-                                                                    ).show();
+                                                                    // AwesomeDialog(
+                                                                    //   context:
+                                                                    //       context,
+                                                                    //   showCloseIcon:
+                                                                    //       true,
+                                                                    //   dialogType:
+                                                                    //       DialogType
+                                                                    //           .infoReverse,
+                                                                    //   animType:
+                                                                    //       AnimType
+                                                                    //           .bottomSlide,
+                                                                    //   title: tr(
+                                                                    //       "user_sticker_add_warning"),
+                                                                    //   btnOkText:
+                                                                    //       'Ok',
+                                                                    //   btnOkColor:
+                                                                    //       Theme.of(context)
+                                                                    //           .primaryColor,
+                                                                    //   btnOkOnPress:
+                                                                    //       () {},
+                                                                    // ).show();
                                                                   } else {
                                                                     showModalBottomSheet(
                                                                         context:
@@ -341,28 +341,28 @@ class _EditorStickerWidgetState extends State<EditorStickerWidget>
                                                                       (isPremiumUser
                                                                           ? 10
                                                                           : 2)) {
-                                                                    AwesomeDialog(
-                                                                      context:
-                                                                          context,
-                                                                      showCloseIcon:
-                                                                          true,
-                                                                      dialogType:
-                                                                          DialogType
-                                                                              .infoReverse,
-                                                                      animType:
-                                                                          AnimType
-                                                                              .bottomSlide, //awesome_dialog: ^2.1.1
-                                                                      title:
-                                                                          'You can not use more than 2 stickers.',
+                                                                    // AwesomeDialog(
+                                                                    //   context:
+                                                                    //       context,
+                                                                    //   showCloseIcon:
+                                                                    //       true,
+                                                                    //   dialogType:
+                                                                    //       DialogType
+                                                                    //           .infoReverse,
+                                                                    //   animType:
+                                                                    //       AnimType
+                                                                    //           .bottomSlide, //awesome_dialog: ^2.1.1
+                                                                    //   title:
+                                                                    //       'You can not use more than 2 stickers.',
 
-                                                                      btnOkText:
-                                                                          'Ok',
-                                                                      btnOkColor:
-                                                                          Theme.of(context)
-                                                                              .primaryColor,
-                                                                      btnOkOnPress:
-                                                                          () {},
-                                                                    ).show();
+                                                                    //   btnOkText:
+                                                                    //       'Ok',
+                                                                    //   btnOkColor:
+                                                                    //       Theme.of(context)
+                                                                    //           .primaryColor,
+                                                                    //   btnOkOnPress:
+                                                                    //       () {},
+                                                                    // ).show();
                                                                   } else {
                                                                     BlocProvider.of<StickerCubit>(
                                                                             context)
@@ -418,20 +418,20 @@ class _EditorStickerWidgetState extends State<EditorStickerWidget>
                                                                             InkWell(
                                                                           onTap:
                                                                               () {
-                                                                            AwesomeDialog(
-                                                                              context: context,
-                                                                              showCloseIcon: true,
-                                                                              dialogType: DialogType.warning,
-                                                                              animType: AnimType.scale,
-                                                                              title: tr("delete_warning"),
-                                                                              btnOkText: 'Ok',
-                                                                              btnCancelText: "Cancel",
-                                                                              btnCancelOnPress: () {},
-                                                                              btnOkColor: Theme.of(context).primaryColor,
-                                                                              btnOkOnPress: () {
-                                                                                BlocProvider.of<StickerCubit>(context).userStickerOperations(imageUrl: sticker.imageLink, isDelete: true);
-                                                                              },
-                                                                            ).show();
+                                                                            // AwesomeDialog(
+                                                                            //   context: context,
+                                                                            //   showCloseIcon: true,
+                                                                            //   dialogType: DialogType.warning,
+                                                                            //   animType: AnimType.scale,
+                                                                            //   title: tr("delete_warning"),
+                                                                            //   btnOkText: 'Ok',
+                                                                            //   btnCancelText: "Cancel",
+                                                                            //   btnCancelOnPress: () {},
+                                                                            //   btnOkColor: Theme.of(context).primaryColor,
+                                                                            //   btnOkOnPress: () {
+                                                                            //     BlocProvider.of<StickerCubit>(context).userStickerOperations(imageUrl: sticker.imageLink, isDelete: true);
+                                                                            //   },
+                                                                            // ).show();
                                                                           },
                                                                           child:
                                                                               Container(
@@ -525,21 +525,21 @@ class _EditorStickerWidgetState extends State<EditorStickerWidget>
                                                                 2 &&
                                                             (isPremiumUser ==
                                                                 false)) {
-                                                          AwesomeDialog(
-                                                            context: context,
-                                                            showCloseIcon: true,
-                                                            dialogType:
-                                                                DialogType
-                                                                    .infoReverse,
-                                                            animType: AnimType
-                                                                .bottomSlide, //awesome_dialog: ^2.1.1
-                                                            title:
-                                                                'You can use only 2 stickers',
-                                                            btnOkText: 'Ok',
-                                                            btnOkColor: Theme
-                                                                    .of(context)
-                                                                .primaryColor,
-                                                          ).show();
+                                                          // AwesomeDialog(
+                                                          //   context: context,
+                                                          //   showCloseIcon: true,
+                                                          //   dialogType:
+                                                          //       DialogType
+                                                          //           .infoReverse,
+                                                          //   animType: AnimType
+                                                          //       .bottomSlide, //awesome_dialog: ^2.1.1
+                                                          //   title:
+                                                          //       'You can use only 2 stickers',
+                                                          //   btnOkText: 'Ok',
+                                                          //   btnOkColor: Theme
+                                                          //           .of(context)
+                                                          //       .primaryColor,
+                                                          // ).show();
                                                         } else {
                                                           BlocProvider.of<StickerCubit>(
                                                                   context)

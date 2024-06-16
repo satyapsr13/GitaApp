@@ -4,9 +4,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:gita/Presentation/Widgets/drawer.dart';
+import 'package:logger/logger.dart';
 
+// import 'package:flutter_tts';
 import '../../../../Constants/constants.dart';
 import '../../../../Constants/locations.dart';
+import '../../../../Data/model/api/SeriesPostResponse/gita_post_response.dart';
 import '../../../../Logic/Cubit/SeriesPostCubit/series_post_cubit.dart';
 import '../../../../Utility/next_screen.dart';
 import 'gita_sloke_specific_post_screen.dart';
@@ -147,18 +152,38 @@ class _GitagyanMainScreenState extends State<GitagyanMainScreen> {
       englishTopic: "Moksha Sanyaasa Yoga",
     ),
   ];
+  late FlutterTts flutterTts;
 
   @override
   void initState() {
+    flutterTts = FlutterTts();
+    fetchData();
     pathTracker.add("gita_screen");
-    // BlocProvider.of<SeriesPostCubit>(context).fetchGitaPosts(chapter: "1");
     super.initState();
+  }
+
+  fetchData() {
+    if (BlocProvider.of<SeriesPostCubit>(context)
+            .state
+            .allGitaSlokeList
+            .length <
+        18) {
+      for (int i = 1; i <= 18; ++i) {
+        if (!BlocProvider.of<SeriesPostCubit>(context)
+            .state
+            .allGitaSlokeList
+            .containsKey(i)) {
+          BlocProvider.of<SeriesPostCubit>(context)
+              .fetchGitaPosts(chapter: i.toString());
+        }
+      }
+    }
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-    pathTracker.remove("gita_screen");
+    // pathTracker.remove("gita_screen");
     super.dispose();
   }
 
@@ -180,6 +205,7 @@ class _GitagyanMainScreenState extends State<GitagyanMainScreen> {
           ),
           // title: const Text('Rishteyy:- Gita Gyan'),
         ),
+        drawer: CustomDrawer(),
         body: SingleChildScrollView(
           child: BlocBuilder<SeriesPostCubit, SeriesPostState>(
             builder: (context, state) {
@@ -192,8 +218,6 @@ class _GitagyanMainScreenState extends State<GitagyanMainScreen> {
                     child: AspectRatio(
                       aspectRatio: 3,
                       child: Container(
-                        // height: mq.height * 0.1,
-                        // width: mq.width * 0.8,
                         decoration: BoxDecoration(
                           color: Colors.transparent,
                           image: const DecorationImage(
@@ -213,11 +237,52 @@ class _GitagyanMainScreenState extends State<GitagyanMainScreen> {
                           GitaAdhyay adhyayName = gitaChapters[index];
                           return InkWell(
                             onTap: () {
-                              nextScreenWithFadeAnimation(
-                                  context,
-                                  GitaGyanSpecificSlokeScreen(
-                                    chaperNo: (index + 1).toString(),
-                                  ));
+                              Logger().i("Mil gaya sala 0");
+                              // Map<int, List<GitaSloke>> tempSlokeList = {};
+                              // tempSlokeList.addAll(state.allGitaSlokeList);
+                              // Logger().i(tempSlokeList);
+                              final String key = (index + 1).toString();
+                              // return;
+                              if (state.allGitaSlokeList
+                                  .containsKey(index + 1)) {
+                                Logger().i("Mil gaya sala 1");
+                                List<GitaSloke> list =
+                                    state.allGitaSlokeList[index + 1] ?? [];
+                                BlocProvider.of<SeriesPostCubit>(context)
+                                    .updateVariables(
+                                  chapter: key,
+                                  gitaSlokeList: list,
+                                  totalSloke: list.length,
+                                );
+                                if (list.isNotEmpty) {
+                                  Logger().i("Mil gaya sala");
+                                  Logger().i(list);
+                                  nextScreenWithFadeAnimation(
+                                      context,
+                                      GitaGyanSpecificSlokeScreen(
+                                        chaperNo: key,
+                                        flutterTts: flutterTts,
+                                        isDataPresent: true,
+                                      ));
+                                } else {
+                                  Logger().i("Mil gaya sala 2");
+                                  nextScreenWithFadeAnimation(
+                                      context,
+                                      GitaGyanSpecificSlokeScreen(
+                                        flutterTts: flutterTts,
+                                        chaperNo: key,
+                                        isDataPresent: false,
+                                      ));
+                                }
+                              } else {
+                                nextScreenWithFadeAnimation(
+                                    context,
+                                    GitaGyanSpecificSlokeScreen(
+                                      chaperNo: key,
+                                      flutterTts: flutterTts,
+                                      isDataPresent: false,
+                                    ));
+                              }
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(

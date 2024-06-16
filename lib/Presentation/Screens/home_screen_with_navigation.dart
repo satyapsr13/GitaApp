@@ -238,35 +238,7 @@ class _NavigationWrapperState extends State<NavigationWrapper>
                   nextScreen(context, const LeatherboardScreen());
                   return;
 
-                  if (false) {
-                    showSupportDialogue(
-                        showSpecilOfferImage: false,
-                        isGreenGradientButton: true,
-                        context: context,
-                        title: tr("join_wgruoup"),
-                        buttonText: tr("join_support_group"),
-                        image:
-                            "https://manage.connectup.in/rishteyy/occasions/joinwa.jpg",
-                        mq: const Size(350, 350),
-                        onTap: (() async {
-                          try {
-                            String url =
-                                "https://connectup.in/rishteyy/support";
-                            if (await canLaunchUrl(Uri.parse(url))) {
-                              await launchUrl(Uri.parse(url),
-                                  mode: LaunchMode.externalApplication);
-                            }
-                          } catch (e) {}
-                        }));
-                  } else {
-                    // BlocProvider.of<PostCubit>(context).fetchTodayData();
-                    // nextScreen(context, const BgRemoverScreen());
-                    BlocProvider.of<UserCubit>(context).updateStateVariables(
-                        isPremiumUser: !BlocProvider.of<UserCubit>(context)
-                            .state
-                            .isPremiumUser);
-                    // final temp =
-                  }
+                  
                   //     BlocProvider.of<PostCubit>(context).state.categoriesList;
                   // Logger().i(temp);
 
@@ -316,7 +288,7 @@ class _NavigationWrapperState extends State<NavigationWrapper>
       ),
       body: BlocConsumer<UserCubit, UserState>(listener: (context, userState) {
         if (userState.getProfileStatus == Status.phoneNumberInvalid) {
-          nextScreenCloseOthers(context, const LoginScreen());
+          // nextScreenCloseOthers(context, const LoginScreen());
         }
       }, builder: (context, _) {
         return TabBarView(

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gita/Presentation/Screens/SeriesPosts/GitsGyanScreens/gita_sloke_main_screen.dart';
 import 'package:logger/logger.dart';
 
 import '../../Constants/locations.dart';
@@ -32,18 +33,18 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Logger().i(widget.isLoggedIn);
-    if (widget.isLoggedIn == true) {
-       BlocProvider.of<PostCubit>(context).fetchNextPagePosts(0);
-    }
+    // Logger().i(widget.isLoggedIn);
+    // if (widget.isLoggedIn == true) {
+    //    BlocProvider.of<PostCubit>(context).fetchNextPagePosts(0);
+    // }
 
-    BlocProvider.of<StickerCubit>(context).syncActiveFrameById();
-    if (BlocProvider.of<StickerCubit>(context, listen: false)
-        .state
-        .listOfFrames
-        .isEmpty) {
-      BlocProvider.of<StickerCubit>(context).fetchFrames();
-    }
+    // BlocProvider.of<StickerCubit>(context).syncActiveFrameById();
+    // if (BlocProvider.of<StickerCubit>(context, listen: false)
+    //     .state
+    //     .listOfFrames
+    //     .isEmpty) {
+    //   BlocProvider.of<StickerCubit>(context).fetchFrames();
+    // }
 
     Timer(const Duration(seconds: 2), () async {
       if (widget.notificationFromFirebase != null) {
@@ -74,30 +75,30 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
           return (widget.isLoggedIn != true)
-              ? const LanguageSelectionScreen()
-              : const NavigationWrapper();
+              ? const GitagyanMainScreen()
+              : const GitagyanMainScreen();
         })).then((value) {});
       }
     });
-    BlocProvider.of<UserCubit>(context).recoverFromLocalStorage();
-    if (widget.isLoggedIn == true) {
-      if ((BlocProvider.of<UserCubit>(context, listen: false).state.userId <
-              1) ||
-          (BlocProvider.of<UserCubit>(context, listen: false)
-                  .state
-                  .againUpdateProfileUrlInServer ==
-              true)) {
-        BlocProvider.of<UserCubit>(context).getProfileData();
-      }
-      BlocProvider.of<UserCubit>(context).loadImageAndName();
-      if (BlocProvider.of<UserCubit>(context, listen: false)
-          .state
-          .savedPostList
-          .isEmpty) {
-        BlocProvider.of<UserCubit>(context).savedPostDbOperations();
-      }
-    } 
-    BlocProvider.of<StickerCubit>(context).fetchStickers();
+    // BlocProvider.of<UserCubit>(context).recoverFromLocalStorage();
+    // if (widget.isLoggedIn == true) {
+    //   if ((BlocProvider.of<UserCubit>(context, listen: false).state.userId <
+    //           1) ||
+    //       (BlocProvider.of<UserCubit>(context, listen: false)
+    //               .state
+    //               .againUpdateProfileUrlInServer ==
+    //           true)) {
+    //     BlocProvider.of<UserCubit>(context).getProfileData();
+    //   }
+    //   BlocProvider.of<UserCubit>(context).loadImageAndName();
+    //   if (BlocProvider.of<UserCubit>(context, listen: false)
+    //       .state
+    //       .savedPostList
+    //       .isEmpty) {
+    //     BlocProvider.of<UserCubit>(context).savedPostDbOperations();
+    //   }
+    // } 
+    // BlocProvider.of<StickerCubit>(context).fetchStickers();
   }
 
   @override

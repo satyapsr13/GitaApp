@@ -18,7 +18,7 @@ import 'Cubit/TestCubit/test_cubit.dart';
 import 'Cubit/ToolsCubit/tools_cubit.dart';
 import 'Cubit/locale_cubit/locale_cubit.dart';
 import 'Cubit/user_cubit/user_cubit.dart';
-import 'Cubit/video_cubit/video_cubit.dart';
+// import 'Cubit/video_cubit/video_cubit.dart';
 
 Future<List<BlocProvider>> getBlocProviders(
     SecureStorage secureStorage, HydratedStorage hydratedStorage) async {
@@ -71,11 +71,11 @@ Future<List<BlocProvider>> getBlocProviders(
             localeRepository: localeRepository,
             seriesPostRepository: seriesPostRepository,
             secureStorage: secureStorage)),
-    BlocProvider<VideoCubit>(
-        create: (context) => VideoCubit(
-              localeRepository: localeRepository,
-              // /secureStorage: secureStorage
-            )),
+    // BlocProvider<VideoCubit>(
+    //     create: (context) => VideoCubit(
+    //           localeRepository: localeRepository,
+    //           // /secureStorage: secureStorage
+    //         )),
 
     BlocProvider<AdmobCubit>(
         create: (context) => AdmobCubit(

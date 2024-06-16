@@ -22,24 +22,24 @@ import 'post_widget.dart';
 class CustomDrawer extends StatelessWidget {
   CustomDrawer({super.key});
 
-  SecureStorage storage = SecureStorage();
+  // SecureStorage storage = SecureStorage();
 
-  TextEditingController numberController = TextEditingController(text: "");
+  // TextEditingController numberController = TextEditingController(text: "");
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context).size;
-    PostWidgetModel postWidgetData = PostWidgetModel(
-      index: 1,
-      imageLink:
-          "https://manage.connectup.in/rishteyy/quotes/quoteshindi/motivational/p2_i3_1673443183.jpg",
-      postId: "1",
-      profilePos: "right",
-      profileShape: "round",
-      tagColor: "white",
-      playStoreBadgePos: "right",
-      showName: true,
-      showProfile: true,
-    );
+    // PostWidgetModel postWidgetData = PostWidgetModel(
+    //   index: 1,
+    //   imageLink:
+    //       "https://manage.connectup.in/rishteyy/quotes/quoteshindi/motivational/p2_i3_1673443183.jpg",
+    //   postId: "1",
+    //   profilePos: "right",
+    //   profileShape: "round",
+    //   tagColor: "white",
+    //   playStoreBadgePos: "right",
+    //   showName: true,
+    //   showProfile: true,
+    // );
     return Drawer(
       width: mq.width * 0.8,
       backgroundColor: Colors.transparent,
@@ -62,29 +62,29 @@ class CustomDrawer extends StatelessWidget {
                     width: mq.width * 0.8,
                     child: Column(
                       children: [
-                        Column(
-                          // alignment: Alignment.bottomCenter,
-                          children: [
-                            Container(
-                              child: Transform.scale(
-                                scale: 0.7,
-                                child: PostWidget(
-                                  isOnlyForControll: true,
-                                  postWidgetData: postWidgetData,
-                                  showEditAndShare: false,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              tr('choose_default_setting'),
-                              style: const TextStyle(
-                                backgroundColor: Colors.white,
-                                fontSize: 15,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
+                        // Column(
+                        //   // alignment: Alignment.bottomCenter,
+                        //   children: [
+                        //     Container(
+                        //       child: Transform.scale(
+                        //         scale: 0.7,
+                        //         child: PostWidget(
+                        //           isOnlyForControll: true,
+                        //           postWidgetData: postWidgetData,
+                        //           showEditAndShare: false,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     Text(
+                        //       tr('choose_default_setting'),
+                        //       style: const TextStyle(
+                        //         backgroundColor: Colors.white,
+                        //         fontSize: 15,
+                        //         color: Colors.black,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
 
                         const SizedBox(height: 5),
 
@@ -630,68 +630,9 @@ class CustomDrawer extends StatelessWidget {
                             ),
                           ),
                         ),
-                        kDebugMode
-                            ? InkWell(
-                                onTap: () async {
-                                  SecureStorage storage = SecureStorage();
-                                  storage.deleteAll().then((value) {
-                                    nextScreenCloseOthers(context,
-                                        const LanguageSelectionScreen());
-                                  });
-                                },
-                                child: ListTile(
-                                  leading: const Icon(Icons.logout_outlined,
-                                      color: Color(0xffFF9200)),
-                                  title: Text(
-                                    tr('Log Out'),
-                                    style: const TextStyle(
-                                        color: Color(0xffFF9200)),
-                                  ),
-                                ),
-                              )
-                            : const SizedBox(),
+                         
 
-                        Visibility(
-                          visible: userState.isAdmin ||
-                              kDebugMode ||
-                              isEvenVersion(),
-                          child: InkWell(
-                            onTap: () async {
-                              // AwesomeDialog(
-                              //   context: context, showCloseIcon: true,
-                              //   dialogType: DialogType.INFO_REVERSED,
-                              //   animType: AnimType
-                              //       .BOTTOMSLIDE, //awesome_dialog: ^2.1.1
-                              //   title: 'Password enter kro',
-                              //   body: TextField(
-                              //     onChanged: (value) {
-                              //       if (value.toString() == "1432" ||
-                              //           !kDebugMode) {
-                              //         Navigator.pop(context);
-
-                              //       } else {}
-                              //     },
-                              //   ),
-                              //   btnOkText: 'Login',
-                              //   btnOkColor: Theme.of(context).primaryColor,
-                              //   btnOkOnPress: () {},
-                              // ).show();
-
-                              nextScreen(context, const TestHomeScreen());
-                            },
-                            child: ListTile(
-                              leading: const Icon(Icons.admin_panel_settings,
-                                  color: Color(0xffFF9200)),
-                              title: Text(
-                                tr('Admin Mode'),
-                                style: TextStyle(
-                                    color: userState.isPremiumUser
-                                        ? const Color(0xffFF9200)
-                                        : Colors.grey),
-                              ),
-                            ),
-                          ),
-                        ),
+                        
                         // Image.asset("assets/images/sticker_3.png"),
                       ],
                     ),

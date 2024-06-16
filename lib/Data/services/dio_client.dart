@@ -37,8 +37,8 @@ class DioClient {
     baseUrl = "https://manage.connectup.in/api/";
     _dio
       ..options.baseUrl = baseUrl
-      ..options.connectTimeout = _defaultConnectTimeout
-      ..options.receiveTimeout = _defaultReceiveTimeout
+      ..options.connectTimeout = const Duration(seconds: 15)
+      ..options.receiveTimeout = const Duration(seconds: 15)
       ..httpClientAdapter;
     // ..options.headers = {'Authorization': getToken()};
     if (interceptors?.isNotEmpty ?? false) {

@@ -13,7 +13,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:path_provider/path_provider.dart'; 
-import 'package:sms_autofill/sms_autofill.dart';
+// import 'package:sms_autofill/sms_autofill.dart';
 
 import '../../Constants/colors.dart';
 import '../../Constants/enums.dart';
@@ -214,7 +214,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _phoneNumberController.dispose();
   }
 
-  final SmsAutoFill _autoFill = SmsAutoFill();
+  // final SmsAutoFill _autoFill = SmsAutoFill();
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context).size;
@@ -333,26 +333,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onTap: firstTimeTap == true
                         ? null
                         : (() async {
-                            Logger().i("message");
-                            firstTimeTap = false;
-                            final completePhoneNumber = await _autoFill.hint;
-                            Logger().i("message0  $completePhoneNumber");
-                            if (completePhoneNumber != null) {
-                              Logger().i("message1");
-                              setState(() {
-                                String finalNumber =
-                                    completePhoneNumber.toString();
-                                Logger().i("message2 ");
-                                if (finalNumber.length > 10) {
-                                  _phoneNumberController.text = finalNumber
-                                      .substring(finalNumber.length - 10);
-                                } else {
-                                  _phoneNumberController.text =
-                                      completePhoneNumber.toString();
-                                }
-                                Logger().i("message2 $completePhoneNumber");
-                              });
-                            }
+                            // Logger().i("message");
+                            // firstTimeTap = false;
+                            // final completePhoneNumber = await _autoFill.hint;
+                            // Logger().i("message0  $completePhoneNumber");
+                            // if (completePhoneNumber != null) {
+                            //   Logger().i("message1");
+                            //   setState(() {
+                            //     String finalNumber =
+                            //         completePhoneNumber.toString();
+                            //     Logger().i("message2 ");
+                            //     if (finalNumber.length > 10) {
+                            //       _phoneNumberController.text = finalNumber
+                            //           .substring(finalNumber.length - 10);
+                            //     } else {
+                            //       _phoneNumberController.text =
+                            //           completePhoneNumber.toString();
+                            //     }
+                            //     Logger().i("message2 $completePhoneNumber");
+                            //   });
+                            // }
                           }),
                     validator: (val) {
                       if (val.toString().length < 10) {

@@ -1,26 +1,22 @@
 import 'dart:io';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
+// // import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
-import 'package:overlay_support/overlay_support.dart'; 
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Constants/colors.dart';
 import '../../../Constants/constants.dart';
 import '../../../Constants/locations.dart';
-import '../../../Data/services/secure_storage.dart';
 import '../../../Logic/Cubit/user_cubit/user_cubit.dart';
 import '../../../Utility/common.dart';
 import '../../../Utility/next_screen.dart';
 import '../PremiumPlanScreens/premium_plan_list_screen.dart';
 import '../PremiumPlanScreens/premium_plan_screen.dart';
 import '../language_selection_screen.dart';
-import '../login.screen.dart';
 import '../profile.screen.dart';
 import 'donate.screen.dart';
 import 'rating_screen.dart';
@@ -31,7 +27,6 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-  
   Future<void> clearSecureScreen() async {
     try {
       await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
@@ -228,41 +223,41 @@ class _MenuScreenState extends State<MenuScreen> {
                       title: tr('logout'),
                       icon: Icons.logout,
                       onTap: (() {
-                        AwesomeDialog(
-                          context: context, showCloseIcon: true,
-                          dialogType: DialogType.warning,
-                          animType:
-                              AnimType.bottomSlide, //awesome_dialog: ^2.1.1
-                          // title: ,
-                          body: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20),
-                            child: Text(
-                              tr("app_data_delete_warning"),
-                              style: const TextStyle(
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                          btnOkText: 'Ok',
-                          // btnOkColor: Theme.of(context).primaryColor,
-                          btnCancelText: "Cancel",
+                        // AwesomeDialog(
+                        //   context: context, showCloseIcon: true,
+                        //   dialogType: DialogType.warning,
+                        //   animType:
+                        //       AnimType.bottomSlide, //awesome_dialog: ^2.1.1
+                        //   // title: ,
+                        //   body: Padding(
+                        //     padding: const EdgeInsets.symmetric(vertical: 20),
+                        //     child: Text(
+                        //       tr("app_data_delete_warning"),
+                        //       style: const TextStyle(
+                        //         color: Colors.black,
+                        //       ),
+                        //     ),
+                        //   ),
+                        //   btnOkText: 'Ok',
+                        //   // btnOkColor: Theme.of(context).primaryColor,
+                        //   btnCancelText: "Cancel",
 
-                          btnCancelColor: AppColors.primaryColor,
-                          btnOkColor: Colors.grey,
-                          btnCancelOnPress: (() {}),
+                        //   btnCancelColor: AppColors.primaryColor,
+                        //   btnOkColor: Colors.grey,
+                        //   btnCancelOnPress: (() {}),
 
-                          btnOkOnPress: () async {
-                            nextScreenCloseOthers(context, const LoginScreen());
-                            BlocProvider.of<UserCubit>(context)
-                                .updateStateVariables(
-                                    fileImagePath: "", profileImagesList: []);
-                            SecureStorage storage = SecureStorage();
+                        //   btnOkOnPress: () async {
+                        //     nextScreenCloseOthers(context, const LoginScreen());
+                        //     BlocProvider.of<UserCubit>(context)
+                        //         .updateStateVariables(
+                        //             fileImagePath: "", profileImagesList: []);
+                        //     SecureStorage storage = SecureStorage();
 
-                            await storage.saveProfilePhotos([]);
+                        //     await storage.saveProfilePhotos([]);
 
-                            toast("Loggedout");
-                          },
-                        ).show();
+                        //     toast("Loggedout");
+                        //   },
+                        // ).show();
                       })),
                   divider(),
                   const Expanded(child: SizedBox()),

@@ -1,13 +1,13 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+// import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart'; 
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../Constants/colors.dart';
 import '../../../Data/model/ObjectModels/post_widget_model.dart';
 import '../../../Data/model/ObjectModels/saved_post_model.dart';
 import '../../../Logic/Cubit/user_cubit/user_cubit.dart';
-import '../../Widgets/post_widget.dart'; 
+import '../../Widgets/post_widget.dart';
 
 class SharedPostWidget extends StatelessWidget {
   const SharedPostWidget({
@@ -142,23 +142,7 @@ class SharedPostWidget extends StatelessWidget {
                                   right: 0,
                                   child: InkWell(
                                     onTap: () {
-                                      AwesomeDialog(
-                                        context: context,
-                                        showCloseIcon: true,
-                                        dialogType: DialogType.warning,
-                                        animType: AnimType
-                                            .scale, //awesome_dialog: ^2.1.1
-                                        title: 'Delete Post',
-                                        btnOkText: 'Delete',
-                                        btnOkColor: Colors.red,
-                                        btnOkOnPress: () {
-                                          BlocProvider.of<UserCubit>(context)
-                                              .savedPostDbOperations(
-                                                  isDeleteOperation: true,
-                                                  postLinkToDelete:
-                                                      savedPost.imageLink);
-                                        },
-                                      ).show();
+                                       
                                     },
                                     child: Container(
                                       width: 25,

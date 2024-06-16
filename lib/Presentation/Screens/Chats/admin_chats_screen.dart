@@ -121,17 +121,17 @@ class _AdminChatScreenState extends State<AdminChatScreen> {
           actions: [
             IconButton(
                 onPressed: () {
-                  showGeneralDialogue(
-                      context: context,
-                      // title: "Save Rishteyy App Number",
-                      description: tr("contact_save_title"),
-                      buttonText: "Save",
-                      isGreenGradientButton: true,
-                      mq: mq,
-                      onTap: () {
-                        Navigator.pop(context);
-                        saveRishteyyContact();
-                      });
+                  // showGeneralDialogue(
+                  //     context: context,
+                  //     // title: "Save Rishteyy App Number",
+                  //     description: tr("contact_save_title"),
+                  //     buttonText: "Save",
+                  //     isGreenGradientButton: true,
+                  //     mq: mq,
+                  //     onTap: () {
+                  //       Navigator.pop(context);
+                  //       saveRishteyyContact();
+                  //     });
                 },
                 icon: const Icon(
                   Icons.add_call,

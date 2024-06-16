@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:awesome_dialog/awesome_dialog.dart';
+// import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,7 +8,7 @@ import '../../Data/model/ObjectModels/post_widget_model.dart';
 import '../../Logic/Cubit/Posts/posts_cubit.dart';
 import '../Ads/banner_admob.dart';
 import '../Widgets/post_widget.dart';
-import '../Widgets/style.dart'; 
+import '../Widgets/style.dart';
 
 class SharedPostScreen extends StatefulWidget {
   const SharedPostScreen({super.key});
@@ -94,19 +94,7 @@ class _SharedPostScreenState extends State<SharedPostScreen> {
                                 Dismissible(
                                   key: Key(index.toString()),
                                   onDismissed: (e) {
-                                    AwesomeDialog(
-                                      context: context, showCloseIcon: true,
-                                      dialogType: DialogType.warning,
-                                      animType: AnimType
-                                          .scale, //awesome_dialog: ^2.1.1
-                                      title: 'Are you sure want to delete?',
-                                      // desc: 'Dialog description here.............',
-                                      btnCancelOnPress: () {},
-                                      btnCancelText: 'Delete',
-                                      btnOkColor:
-                                          Theme.of(context).primaryColor,
-                                      // btnOkOnPress: () {},
-                                    ).show();
+                                     
                                   },
                                   background: Icon(
                                     Icons.delete,

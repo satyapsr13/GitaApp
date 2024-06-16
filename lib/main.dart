@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -43,28 +43,28 @@ https://www.figma.com/file/CxZT2MEmc8nfBftLjCkOLX/Rishteyy-UI?node-id=0%3A1&t=PL
 // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 //     FlutterLocalNotificationsPlugin();
 
-Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-}
+// Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   await Firebase.initializeApp();
+// }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final HydratedStorage hydratedStorage = await HydratedStorage.build(
       storageDirectory: await getApplicationDocumentsDirectory());
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
 
   NotificationServices().initNotification();
 
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
-  final notificationFromFirebase =
-      await FirebaseMessaging.instance.getInitialMessage();
+  // final notificationFromFirebase =
+  //     await FirebaseMessaging.instance.getInitialMessage();
 
-  if (notificationFromFirebase != null) {
-    pathTracker.add("notification");
-  }
-  MobileAds.instance.initialize();
+  // if (notificationFromFirebase != null) {
+  //   pathTracker.add("notification");
+  // }
+  // MobileAds.instance.initialize();
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -98,7 +98,7 @@ Future<void> main() async {
           child: MyApp(
             blocProviders: blocProviders,
             isLoggedIn: isLoggedIn,
-            notificationFromFirebase: notificationFromFirebase,
+            // notificationFromFirebase: notificationFromFirebase,
           ))),
       storage: hydratedStorage);
 }

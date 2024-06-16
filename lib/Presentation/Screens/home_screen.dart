@@ -848,11 +848,11 @@ class _HomeScreenState extends State<HomeScreen>
                                                   postKeyword:
                                                       miniapps.keyword ?? ""));
                                         } else {
-                                          showUpdateDialogue(
-                                              isGreenGradientButton: true,
-                                              context: context,
-                                              mq: mq,
-                                              onTap: () {});
+                                          // showUpdateDialogue(
+                                          //     isGreenGradientButton: true,
+                                          //     context: context,
+                                          //     mq: mq,
+                                          //     onTap: () {});
                                           toast(tr("please_update_your_app"),
                                               duration: Toast.LENGTH_LONG);
                                         }

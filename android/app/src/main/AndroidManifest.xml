@@ -1,5 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.aeonian.gita">
+    <queries>
+    <intent>
+    <action android:name="android.intent.action.TTS_SERVICE" />
+    </intent>
+   </queries>
    <application
         android:label="Shreemad Bhagwat Gita"
         android:name="${applicationName}"
@@ -31,4 +36,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

@@ -44,23 +44,23 @@ class RazorPayIntegration {
 
   void _handlePaymentError(PaymentFailureResponse response) {
     // Logger().e(response.message);
-    showSupportDialogue(
-        showSpecilOfferImage: false,
-        isGreenGradientButton: true,
-        context: context,
-        title: tr("join_wgruoup"),
-        buttonText: tr("join_support_group"),
-        image: "https://manage.connectup.in/rishteyy/occasions/joinwa.jpg",
-        mq: const Size(350, 350),
-        onTap: (() async {
-          try {
-            String url = "https://connectup.in/rishteyy/support";
-            if (await canLaunchUrl(Uri.parse(url))) {
-              await launchUrl(Uri.parse(url),
-                  mode: LaunchMode.externalApplication);
-            }
-          } catch (e) {}
-        }));
+    // showSupportDialogue(
+    //     showSpecilOfferImage: false,
+    //     isGreenGradientButton: true,
+    //     context: context,
+    //     title: tr("join_wgruoup"),
+    //     buttonText: tr("join_support_group"),
+    //     image: "https://manage.connectup.in/rishteyy/occasions/joinwa.jpg",
+    //     mq: const Size(350, 350),
+    //     onTap: (() async {
+    //       try {
+    //         String url = "https://connectup.in/rishteyy/support";
+    //         if (await canLaunchUrl(Uri.parse(url))) {
+    //           await launchUrl(Uri.parse(url),
+    //               mode: LaunchMode.externalApplication);
+    //         }
+    //       } catch (e) {}
+    //     }));
     BlocProvider.of<UserCubit>(context).sendPremiumPurchaseToBackend(
         orderId: orderIId,
         isSuccess: false,

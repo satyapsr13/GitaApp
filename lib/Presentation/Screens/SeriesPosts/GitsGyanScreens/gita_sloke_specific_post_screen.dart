@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:gita/Utility/extensions.dart';
 import 'package:overlay_support/overlay_support.dart';
 
@@ -18,9 +19,13 @@ import 'gita_sloke_main_screen.dart';
 class GitaGyanSpecificSlokeScreen extends StatefulWidget {
   // const GitaGyanSpecificSlokeScreen({super.key});
   String chaperNo;
+  bool isDataPresent;
+  FlutterTts flutterTts;
   GitaGyanSpecificSlokeScreen({
     Key? key,
     required this.chaperNo,
+    required this.flutterTts,
+    this.isDataPresent = false,
   }) : super(key: key);
 
   @override
@@ -162,9 +167,25 @@ class _GitaGyanSpecificSlokeScreenState
   ];
   @override
   void initState() {
-    BlocProvider.of<SeriesPostCubit>(context)
-        .fetchGitaPosts(chapter: widget.chaperNo)
-        .then((value) {
+    if (widget.isDataPresent == false) {
+      BlocProvider.of<SeriesPostCubit>(context)
+          .fetchGitaPosts(chapter: widget.chaperNo)
+          .then((value) {
+        _tabController = TabController(
+            initialIndex: 0,
+            length: BlocProvider.of<SeriesPostCubit>(context, listen: false)
+                .state
+                .gitaSlokeList
+                .length,
+            vsync: this);
+
+        _tabController.addListener((() {
+          setState(() {
+            initialPostNo = -1;
+          });
+        }));
+      });
+    } else {
       _tabController = TabController(
           initialIndex: 0,
           length: BlocProvider.of<SeriesPostCubit>(context, listen: false)
@@ -178,7 +199,8 @@ class _GitaGyanSpecificSlokeScreenState
           initialPostNo = -1;
         });
       }));
-    });
+    }
+
     super.initState();
   }
 
@@ -187,14 +209,6 @@ class _GitaGyanSpecificSlokeScreenState
     _tabController.dispose();
     super.dispose();
   }
-
-  // void _handleTabChange() {
-  //   setState(() {
-  //     // initialPostNo = -1;
-
-  //     Logger().i("initial post tab ${_tabController.index}");
-  //   });
-  // }
 
   String slokeImage = "";
   GitaAdhyay selectedChapter = const GitaAdhyay(
@@ -225,7 +239,6 @@ class _GitaGyanSpecificSlokeScreenState
             ),
           ),
           backgroundColor: Colors.white,
-          // actions: [],
         ),
         bottomNavigationBar: _gitaScreenNavBar(),
         body: BlocBuilder<SeriesPostCubit, SeriesPostState>(
@@ -327,10 +340,53 @@ class _GitaGyanSpecificSlokeScreenState
                                         if ((int.tryParse(widget.chaperNo) ??
                                                 0) >
                                             0) {
-                                          nextScreenReplace(
-                                              context,
-                                              GitaGyanSpecificSlokeScreen(
-                                                  chaperNo: widget.chaperNo));
+                                          final String key = widget.chaperNo;
+                                          int index =
+                                              selectedChapter.chapterNo - 1;
+                                          // return;
+                                          if (state.allGitaSlokeList
+                                              .containsKey(index + 1)) {
+                                            // Logger().i("Mil gaya sala 1");
+                                            List<GitaSloke> list =
+                                                state.allGitaSlokeList[
+                                                        index + 1] ??
+                                                    [];
+                                            BlocProvider.of<SeriesPostCubit>(
+                                                    context)
+                                                .updateVariables(
+                                              chapter: key,
+                                              gitaSlokeList: list,
+                                              totalSloke: list.length,
+                                            );
+                                            if (list.isNotEmpty) {
+                                              nextScreenReplace(
+                                                  context,
+                                                  GitaGyanSpecificSlokeScreen(
+                                                    chaperNo: key,
+                                                    flutterTts:
+                                                        widget.flutterTts,
+                                                    isDataPresent: true,
+                                                  ));
+                                            } else {
+                                              // Logger().i("Mil gaya sala 2");
+                                              nextScreenReplace(
+                                                  context,
+                                                  GitaGyanSpecificSlokeScreen(
+                                                    chaperNo: key,
+                                                    flutterTts:
+                                                        widget.flutterTts,
+                                                    isDataPresent: false,
+                                                  ));
+                                            }
+                                          } else {
+                                            nextScreenReplace(
+                                                context,
+                                                GitaGyanSpecificSlokeScreen(
+                                                  chaperNo: key,
+                                                  flutterTts: widget.flutterTts,
+                                                  isDataPresent: false,
+                                                ));
+                                          }
                                         }
                                       },
                                     ),
@@ -373,8 +429,6 @@ class _GitaGyanSpecificSlokeScreenState
                         child: TabBarView(
                           controller: _tabController,
                           children: state.gitaSlokeList.mapIndexed((e, index) {
-                            // Logger()
-                            //     .i("initial post tab  at map $initialPostNo");
                             PostWidgetModel postWidgetData = PostWidgetModel(
                               index: 1,
                               imageLink: e.shlokImage ?? "",
@@ -571,6 +625,7 @@ class _GitaGyanSpecificSlokeScreenState
                       nextScreenReplaceSlideFromLeft(
                           context,
                           GitaGyanSpecificSlokeScreen(
+                            flutterTts: widget.flutterTts,
                             chaperNo: (preChapter).toString(),
                           ));
                     }
@@ -598,6 +653,7 @@ class _GitaGyanSpecificSlokeScreenState
                       nextScreenReplaceSlideFromLeft(
                           context,
                           GitaGyanSpecificSlokeScreen(
+                            flutterTts: widget.flutterTts,
                             chaperNo: (nextChapter).toString(),
                           ));
                     }

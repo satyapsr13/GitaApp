@@ -14,6 +14,7 @@ class SeriesPostState extends Equatable {
   final int totalSloke;
   final PanditData? panditData;
   final List<GitaSloke> gitaSlokeList;
+  final Map<int, List<GitaSloke>> allGitaSlokeList;
   final List<Miniapps> listOfMiniapps;
   final List<ImageSearch> listOfSearchImage;
   final List<String> listOfImgSearchKeys;
@@ -26,6 +27,7 @@ class SeriesPostState extends Equatable {
     this.chapter = "",
     this.totalSloke = 0,
     this.panditData,
+    this.allGitaSlokeList = const {},
     this.gitaSlokeList = const [],
     this.listOfMiniapps = const [],
     this.listOfImgSearchKeys = const [],
@@ -38,6 +40,7 @@ class SeriesPostState extends Equatable {
         panditDataStatus,
         imageSearchStatus,
         listOfSearchImage,
+        allGitaSlokeList,
         listOfImgSearchKeys,
         error,
         chapter,
@@ -50,6 +53,7 @@ class SeriesPostState extends Equatable {
   SeriesPostState copyWith({
     Status? status,
     Status? panditDataStatus,
+    Map<int, List<GitaSloke>>? allGitaSlokeList,
     Status? imageSearchStatus,
     String? error,
     PanditData? panditData,
@@ -62,6 +66,7 @@ class SeriesPostState extends Equatable {
   }) {
     return SeriesPostState(
       status: status ?? this.status,
+      allGitaSlokeList: allGitaSlokeList ?? this.allGitaSlokeList,
       panditDataStatus: panditDataStatus ?? this.panditDataStatus,
       imageSearchStatus: imageSearchStatus ?? this.imageSearchStatus,
       panditData: panditData ?? this.panditData,
@@ -83,6 +88,8 @@ class SeriesPostState extends Equatable {
       'listOfImgSearchKeys': listOfImgSearchKeys,
       'listOfMiniapps': listOfMiniapps.map((e) => e.toMap()).toList(),
       'listOfSearchImage': listOfSearchImage.map((e) => e.toMap()).toList(),
+      'allGitaSlokeList': allGitaSlokeList.map((key, value) =>
+          MapEntry(key.toString(), value.map((e) => e.toMap()).toList())),
     };
   }
 
@@ -97,6 +104,9 @@ class SeriesPostState extends Equatable {
       error: map['error'],
       chapter: map['chapter'],
       listOfMiniapps: miniappList,
+      allGitaSlokeList: Map<int, List<GitaSloke>>.from(map['allGitaSlokeList']
+          ?.map((key, value) => MapEntry(int.parse(key),
+              List<GitaSloke>.from(value.map((x) => GitaSloke.fromMap(x)))))),
       listOfSearchImage: searchImg,
       listOfImgSearchKeys: map['listOfImgSearchKeys'] != null
           ? List<String>.from(map['listOfImgSearchKeys'])

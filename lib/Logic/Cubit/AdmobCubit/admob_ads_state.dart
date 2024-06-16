@@ -6,15 +6,15 @@ class AdmobState extends Equatable {
   final Status status;
   final String imagePath;
   final AdStatus rewardedAdStatus;
-  RewardedAd? rewardedAd;
-  InterstitialAd? interstitialAd;
+  // RewardedAd? rewardedAd;
+  // InterstitialAd? interstitialAd;
 
   AdmobState({
     this.status = Status.initial,
     this.imagePath = "",
     this.rewardedAdStatus = AdStatus.initial,
-    this.rewardedAd,
-    this.interstitialAd,
+    // this.rewardedAd,
+    // this.interstitialAd,
   });
 
   @override
@@ -22,16 +22,16 @@ class AdmobState extends Equatable {
         status,
         imagePath,
         rewardedAdStatus,
-        rewardedAd,
-        interstitialAd,
+        // rewardedAd,
+        // interstitialAd,
       ];
 
   AdmobState copyWith(
       {String? imagePath,
       Status? status,
       AdStatus? rewardedAdStatus,
-      RewardedAd? rewardedAd,
-      InterstitialAd? interstitialAd
+      // RewardedAd? rewardedAd,
+      // InterstitialAd? interstitialAd
       // int? coins,
 
       // List<Categories>? categoriesList,
@@ -40,8 +40,8 @@ class AdmobState extends Equatable {
       status: status ?? this.status,
       imagePath: imagePath ?? this.imagePath,
       rewardedAdStatus: rewardedAdStatus ?? this.rewardedAdStatus,
-      rewardedAd: rewardedAd ?? this.rewardedAd,
-      interstitialAd: interstitialAd ?? this.interstitialAd,
+      // rewardedAd: rewardedAd ?? this.rewardedAd,
+      // interstitialAd: interstitialAd ?? this.interstitialAd,
     );
   }
 
