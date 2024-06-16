@@ -5,11 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gita/Presentation/Widgets/snackbar.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:rishteyy/Presentation/Widgets/snackbar.dart';
-
 import 'package:sms_autofill/sms_autofill.dart';
 
 import '../../Constants/colors.dart';
@@ -218,7 +217,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (state.status == Status.authSuccess) {
           nextScreen(context, const PostSettingScreen());
         }
-        if (state.status == Status.failure) { 
+        if (state.status == Status.failure) {
           showSnackBar(context, Colors.red, state.loginError);
         }
       }), builder: (context, state) {

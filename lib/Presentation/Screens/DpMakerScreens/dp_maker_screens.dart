@@ -1,19 +1,15 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gita/Logic/Cubit/DpMakerCubit/dpmaker_cubit.dart';
+import 'package:gita/Logic/Cubit/PostEditorCubit/post_editor_cubit.dart';
 import 'package:logger/logger.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:rishteyy/Logic/Cubit/DpMakerCubit/dpmaker_cubit.dart';
-import 'package:rishteyy/Logic/Cubit/PostEditorCubit/post_editor_cubit.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -21,11 +17,8 @@ import '../../../Constants/colors.dart';
 import '../../../Constants/enums.dart';
 import '../../../Constants/locations.dart';
 import '../../../Data/model/api/dpframes_response.dart';
-import '../../../Logic/Cubit/Posts/posts_cubit.dart';
 import '../../../Logic/Cubit/StickerCubit/sticker_cubit.dart';
 import '../../../Logic/Cubit/user_cubit/user_cubit.dart';
-import '../../Widgets/Buttons/ccolor_button.dart';
-import '../../Widgets/Buttons/switch_button.dart';
 import '../../Widgets/multiple_profile_photo_widget.dart';
 import '../../Widgets/post_widget.dart';
 

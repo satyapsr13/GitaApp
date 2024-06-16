@@ -5,11 +5,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:gita/Logic/Cubit/PostEditorCubit/post_editor_cubit.dart';
+import 'package:gita/Logic/Cubit/StickerCubit/sticker_cubit.dart';
+import 'package:gita/Presentation/Screens/PostsScreens/PostEditScreenComponents/font_dropdown.widget.dart';
+import 'package:gita/Presentation/Screens/PostsScreens/post_edit_screen.dart';
 import 'package:logger/logger.dart';
-import 'package:rishteyy/Logic/Cubit/PostEditorCubit/post_editor_cubit.dart';
-import 'package:rishteyy/Logic/Cubit/StickerCubit/sticker_cubit.dart';
-import 'package:rishteyy/Presentation/Screens/PostsScreens/PostEditScreenComponents/font_dropdown.widget.dart';
-import 'package:rishteyy/Presentation/Screens/PostsScreens/post_edit_screen.dart';
 
 import '../../../../../Constants/constants.dart';
 import '../../../../Widgets/Buttons/circular_color.button.dart';

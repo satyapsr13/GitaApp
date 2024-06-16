@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:rishteyy/Presentation/Widgets/post_widget.dart';
+import 'package:gita/Presentation/Widgets/post_widget.dart';
 
 import '../../../../Data/model/ObjectModels/post_widget_model.dart';
 

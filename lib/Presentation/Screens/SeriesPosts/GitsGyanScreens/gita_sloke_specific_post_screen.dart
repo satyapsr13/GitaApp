@@ -2,9 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logger/logger.dart';
+import 'package:gita/Utility/extensions.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:rishteyy/Utility/extensions.dart';
 
 import '../../../../Constants/enums.dart';
 import '../../../../Constants/locations.dart';
@@ -174,13 +173,12 @@ class _GitaGyanSpecificSlokeScreenState
               .length,
           vsync: this);
 
-       _tabController.addListener((() {
-         setState(() {
+      _tabController.addListener((() {
+        setState(() {
           initialPostNo = -1;
-
-         });
+        });
       }));
-     });
+    });
     super.initState();
   }
 
@@ -324,7 +322,6 @@ class _GitaGyanSpecificSlokeScreenState
                                           widget.chaperNo = selectedChapter
                                               .chapterNo
                                               .toString();
-                                         
                                         });
 
                                         if ((int.tryParse(widget.chaperNo) ??
@@ -334,7 +331,6 @@ class _GitaGyanSpecificSlokeScreenState
                                               context,
                                               GitaGyanSpecificSlokeScreen(
                                                   chaperNo: widget.chaperNo));
-                                          
                                         }
                                       },
                                     ),

@@ -4,12 +4,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rishteyy/Constants/constants.dart';
-import 'package:rishteyy/Constants/enums.dart';
-import 'package:rishteyy/Data/model/api/leaderboard_response.dart';
-import 'package:rishteyy/Logic/Cubit/user_cubit/user_cubit.dart';
-import 'package:rishteyy/Presentation/Screens/PremiumPlanScreens/premium_plan_screen.dart';
-import 'package:rishteyy/Utility/next_screen.dart';
+import 'package:gita/Constants/constants.dart';
+import 'package:gita/Constants/enums.dart';
+import 'package:gita/Data/model/api/leaderboard_response.dart';
+import 'package:gita/Logic/Cubit/user_cubit/user_cubit.dart';
+import 'package:gita/Presentation/Screens/PremiumPlanScreens/premium_plan_screen.dart';
+import 'package:gita/Utility/next_screen.dart';
 
 import '../../../Constants/locations.dart';
 

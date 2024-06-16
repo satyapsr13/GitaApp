@@ -1,10 +1,8 @@
-import 'dart:ffi';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:rishteyy/Constants/colors.dart';
+import 'package:gita/Constants/colors.dart';
 import 'package:stroke_text/stroke_text.dart';
 
 import '../../../../../Constants/constants.dart';
@@ -25,7 +23,7 @@ class EditorDateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context).size;
-    return Container( 
+    return Container(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: const BorderRadius.only(
@@ -47,7 +45,6 @@ class EditorDateWidget extends StatelessWidget {
         child:
             BlocBuilder<StickerCubit, StickerState>(builder: (context, state) {
           return Column(
-            
             children: [
               const SizedBox(height: 5),
               Row(
@@ -249,7 +246,7 @@ class EditorDateWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                   const SizedBox(width: 5), // const Spacer(),
+                  const SizedBox(width: 5), // const Spacer(),
                   SizedBox(
                       height: mq.height * 0.35,
                       width: 50,

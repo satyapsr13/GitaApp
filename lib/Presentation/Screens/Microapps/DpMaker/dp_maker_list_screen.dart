@@ -3,10 +3,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rishteyy/Presentation/Screens/Tools/premium_wrapper.dart';
-import 'package:rishteyy/Presentation/Screens/post_edit_screen_for_dpframe.dart';
-import 'package:rishteyy/Presentation/Widgets/Dialogue/dialogue.dart';
-import 'package:rishteyy/Utility/next_screen.dart';
+import 'package:gita/Presentation/Screens/post_edit_screen_for_dpframe.dart';
+import 'package:gita/Presentation/Widgets/Dialogue/dialogue.dart';
+import 'package:gita/Utility/next_screen.dart';
 
 import '../../../../Constants/locations.dart';
 import '../../../../Data/model/api/dpframes_response.dart';

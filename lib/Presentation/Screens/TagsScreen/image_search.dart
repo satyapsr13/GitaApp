@@ -3,12 +3,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:gita/Constants/colors.dart';
+import 'package:gita/Constants/enums.dart';
+import 'package:gita/Logic/Cubit/SeriesPostCubit/series_post_cubit.dart';
+import 'package:gita/Presentation/Widgets/loading_builder.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:rishteyy/Constants/colors.dart';
-import 'package:rishteyy/Constants/enums.dart';
-import 'package:rishteyy/Logic/Cubit/SeriesPostCubit/series_post_cubit.dart';
-import 'package:rishteyy/Presentation/Widgets/loading_builder.dart';
 
 import '../../../Data/model/ObjectModels/post_widget_model.dart';
 import '../../../Logic/Cubit/PostEditorCubit/post_editor_cubit.dart';

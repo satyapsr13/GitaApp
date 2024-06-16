@@ -9,11 +9,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:gita/Presentation/Widgets/post_widget.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:rishteyy/Presentation/Widgets/post_widget.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '../../../Constants/colors.dart';

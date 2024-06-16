@@ -5,15 +5,15 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:easy_localization/easy_localization.dart';
+// ignore_for_file: prefer_const_constructors
+import 'package:flutter/material.dart';
+import 'package:gita/Presentation/Screens/Chats/admin_chats_screen.dart';
+import 'package:gita/Presentation/Screens/Frames/frames_list_screen.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:rishteyy/Presentation/Screens/Chats/admin_chats_screen.dart';
-import 'package:rishteyy/Presentation/Screens/Frames/frames_list_screen.dart';
 import 'package:share_plus/share_plus.dart';
-// ignore_for_file: prefer_const_constructors
-import 'package:flutter/material.dart';
 
 import '../Constants/constants.dart';
 import '../Data/services/secure_storage.dart';

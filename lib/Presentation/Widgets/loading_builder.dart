@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rishteyy/Presentation/Widgets/post_widget.dart';
+import 'package:gita/Presentation/Widgets/post_widget.dart';
 
 import '../../Constants/colors.dart';
 
@@ -10,7 +10,7 @@ Widget loadingBuilder(
   } else {
     return Center(
       child: true
-          ? RishteyyShimmerLoader(
+          ? const RishteyyShimmerLoader(
               mq: Size(150, 150),
             )
           : CircularProgressIndicator(

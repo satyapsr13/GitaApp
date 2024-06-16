@@ -8,17 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
+import 'package:gita/Constants/colors.dart';
+import 'package:gita/Constants/constants.dart';
+import 'package:gita/Constants/enums.dart';
+import 'package:gita/Data/model/ObjectModels/post_widget_model.dart';
+import 'package:gita/Data/model/api/SeriesPostResponse/panchang_response.dart';
+import 'package:gita/Logic/Cubit/SeriesPostCubit/series_post_cubit.dart';
+import 'package:gita/Presentation/Widgets/post_widget.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
-
-import 'package:rishteyy/Constants/colors.dart';
-import 'package:rishteyy/Constants/constants.dart';
-import 'package:rishteyy/Constants/enums.dart';
-import 'package:rishteyy/Data/model/ObjectModels/post_widget_model.dart';
-import 'package:rishteyy/Data/model/api/SeriesPostResponse/panchang_response.dart';
-import 'package:rishteyy/Logic/Cubit/SeriesPostCubit/series_post_cubit.dart';
-import 'package:rishteyy/Presentation/Widgets/post_widget.dart';
 
 import '../../../../Data/model/api/frames_response.dart';
 import '../../../../Logic/Cubit/PostEditorCubit/post_editor_cubit.dart';

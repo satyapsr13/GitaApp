@@ -8,15 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:gita/Data/model/api/mini_apps_response.dart';
+import 'package:gita/Presentation/Screens/Microapps/DpMaker/dp_maker_list_screen.dart';
+import 'package:gita/Presentation/Screens/Microapps/Panchang/panchang_main_screen.dart';
+import 'package:gita/Presentation/Widgets/Dialogue/dialogue.dart';
 import 'package:in_app_update/in_app_update.dart';
 import 'package:logger/logger.dart';
-import 'package:neon_widgets/neon_widgets.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:rishteyy/Data/model/api/mini_apps_response.dart';
-import 'package:rishteyy/Presentation/Screens/DpMakerScreens/dp_maker_screens.dart';
-import 'package:rishteyy/Presentation/Screens/Microapps/DpMaker/dp_maker_list_screen.dart';
-import 'package:rishteyy/Presentation/Screens/Microapps/Panchang/panchang_main_screen.dart';
-import 'package:rishteyy/Presentation/Widgets/Dialogue/dialogue.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,7 +25,6 @@ import '../../Constants/enums.dart';
 import '../../Constants/locations.dart';
 import '../../Data/model/ObjectModels/post_widget_model.dart';
 import '../../Data/model/ObjectModels/user.model.dart';
-import '../../Data/model/api/dpframes_response.dart';
 import '../../Data/model/api/post_model.dart';
 import '../../Logic/Cubit/AdmobCubit/admob_ads_cubit.dart';
 import '../../Logic/Cubit/PostEditorCubit/post_editor_cubit.dart';
@@ -983,11 +980,11 @@ class _HomeScreenState extends State<HomeScreen>
                         ListView.separated(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: state.daySpecialPostList.length < 1
+                          itemCount: state.daySpecialPostList.isEmpty
                               ? 1
                               : state.daySpecialPostList.length,
                           itemBuilder: (ctx, index) {
-                            if (state.daySpecialPostList.length < 1) {
+                            if (state.daySpecialPostList.isEmpty) {
                               return (state.status == Status.loadingNextPage ||
                                       state.status == Status.loading)
                                   ? const Center(

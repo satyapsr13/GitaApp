@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:gita/Data/model/api/ImageSearch/pixabay_response.dart';
+import 'package:gita/Data/model/api/ImageSearch/unsplash_response.dart';
 import 'package:logger/logger.dart';
-import 'package:rishteyy/Data/model/api/ImageSearch/pixabay_response.dart';
-import 'package:rishteyy/Data/model/api/ImageSearch/unsplash_response.dart';
 
 import '../model/api/SeriesPostResponse/gita_post_response.dart';
 import '../model/api/SeriesPostResponse/panchang_response.dart';

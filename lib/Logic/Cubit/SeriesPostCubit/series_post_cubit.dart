@@ -1,11 +1,9 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:gita/Data/model/api/ImageSearch/image_search_res.dart';
+import 'package:gita/Data/model/api/mini_apps_response.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:logger/logger.dart';
-import 'package:rishteyy/Data/model/api/ImageSearch/image_search_res.dart';
-import 'package:rishteyy/Data/model/api/mini_apps_response.dart';
-import 'package:unsplash_client/unsplash_client.dart';
 
 import '../../../Constants/enums.dart';
 import '../../../Data/model/api/ImageSearch/pixabay_response.dart';
@@ -17,6 +15,7 @@ import '../../../Data/repositories/series_post_repository.dart';
 import '../../../Data/services/api_result.dart';
 import '../../../Data/services/network_exceptions.dart';
 import '../../../Data/services/secure_storage.dart';
+
 part "series_post_state.dart";
 
 class SeriesPostCubit extends HydratedCubit<SeriesPostState> {
@@ -67,7 +66,7 @@ class SeriesPostCubit extends HydratedCubit<SeriesPostState> {
           error: NetworkExceptions.getErrorMessage(error)));
     });
   }
-  
+
   Future<void> fetchPixabayImage({String? searchKey}) async {
     emit(state.copyWith(imageSearchStatus: Status.loading));
     ApiResult<PixabayImageResponse> categoriesResponse =

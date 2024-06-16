@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:rishteyy/Constants/colors.dart';
 
 class DraggerWidget extends StatefulWidget {
   final Widget body;
@@ -77,7 +76,7 @@ class _DraggerWidgetState extends State<DraggerWidget> {
                     // print("------xPost $xPos yPos $yPos--maxYPos----${widget.maxYPos}---------------");
                   });
                 },
-          child:  widget.body
+          child: widget.body
           // ),
           ),
     );

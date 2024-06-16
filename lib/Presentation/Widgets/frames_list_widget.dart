@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../Constants/locations.dart';
 import '../../Data/model/api/frames_response.dart';
 import '../../Logic/Cubit/PostEditorCubit/post_editor_cubit.dart';
@@ -12,7 +11,7 @@ import '../../Logic/Cubit/user_cubit/user_cubit.dart';
 import '../../Utility/next_screen.dart';
 import '../Screens/PremiumPlanScreens/premium_plan_screen.dart';
 import '../Screens/Tools/premium_wrapper.dart';
-import 'Dialogue/dialogue.dart';
+import 'Dialogue/dialogue.dart';       
 
 class FramesListWidget extends StatelessWidget {
   const FramesListWidget({
@@ -59,8 +58,8 @@ class FramesListWidget extends StatelessWidget {
                                   AwesomeDialog(
                                     context: context,
                                     showCloseIcon: true,
-                                    dialogType: DialogType.INFO_REVERSED,
-                                    animType: AnimType.BOTTOMSLIDE,
+                                    dialogType: DialogType.infoReverse,
+                                    animType: AnimType.bottomSlide,
                                     title: tr('sticker_select_text'),
                                     btnOkText: 'Ok',
                                     btnOkColor: Theme.of(context).primaryColor,

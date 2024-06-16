@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:gita/Data/model/api/leaderboard_response.dart';
+import 'package:gita/Data/model/api/message_response.dart';
 import 'package:logger/logger.dart';
-import 'package:rishteyy/Data/model/api/leaderboard_response.dart';
-import 'package:rishteyy/Data/model/api/message_response.dart';
 
 import '../../Constants/constants.dart';
 import '../model/ObjectModels/user.model.dart';

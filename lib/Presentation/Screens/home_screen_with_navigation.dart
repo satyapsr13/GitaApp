@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
-import 'package:rishteyy/Presentation/Screens/UserProfile/leatherboard.dart';
+import 'package:gita/Presentation/Screens/UserProfile/leatherboard.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../Constants/constants.dart';

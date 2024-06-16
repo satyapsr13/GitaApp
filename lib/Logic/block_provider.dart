@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gita/Logic/Cubit/DpMakerCubit/dpmaker_cubit.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:rishteyy/Logic/Cubit/DpMakerCubit/dpmaker_cubit.dart';
 
 import '../Data/repositories/localization.dart';
 import '../Data/repositories/post_repository.dart';
@@ -30,8 +30,6 @@ Future<List<BlocProvider>> getBlocProviders(
   final UserRepository userRepository = UserRepository();
   final SeriesPostRepository seriesPostRepository = SeriesPostRepository();
   final ToolsRepository toolsRepository = ToolsRepository();
-
-
 
   return [
     BlocProvider<LocaleCubit>(

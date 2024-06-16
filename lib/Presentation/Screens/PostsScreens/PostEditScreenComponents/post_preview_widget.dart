@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rishteyy/Presentation/Screens/PostsScreens/StickerComponents/dragger_widget.dart';
+import 'package:gita/Presentation/Screens/PostsScreens/StickerComponents/dragger_widget.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:stroke_text/stroke_text.dart';
 
@@ -206,7 +206,7 @@ class _PostPreviewWidgetState extends State<PostPreviewWidget> {
                     (postEditorState.isAdvanceEditorMode)
                         ? Visibility(
                             visible: true,
-                            child: StickerDraggingWidget( 
+                            child: StickerDraggingWidget(
                               isDragEnable: !stickerState.lockEditor,
                               xPos: postEditorState.profileInitialPos.dx,
                               yPos: postEditorState.profileInitialPos.dy,

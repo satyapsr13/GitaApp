@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:equatable/equatable.dart';
+import 'package:gita/Data/model/api/message_response.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:logger/logger.dart';
-import 'package:rishteyy/Data/model/api/message_response.dart';
 
 import '../../../Constants/constants.dart';
 import '../../../Constants/enums.dart';
