@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:ui';
 
 // import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:gita/Presentation/Widgets/loading_builder.dart';
+import 'package:logger/logger.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -107,8 +110,8 @@ class _PostWidgetState extends State<PostWidget> {
                             ),
                             child: Container(
                                 constraints: const BoxConstraints(
-                                    // minHeight: 200,
-                                    ),
+                                  minHeight: 200,
+                                ),
                                 clipBehavior: Clip.hardEdge,
                                 decoration: BoxDecoration(
                                   borderRadius: postState.isFrameVisible
@@ -121,8 +124,12 @@ class _PostWidgetState extends State<PostWidget> {
                                       : const BorderRadius.all(
                                           Radius.circular(10)),
                                 ),
-                                child: Image.network(
-                                    widget.postWidgetData.imageLink)),
+                                child: CachedNetworkImage(
+                                  imageUrl: widget.postWidgetData.imageLink,
+                                  // progressIndicatorBuilder:
+                                  //     ((context, url, progress) =>
+                                  //          ),
+                                )),
                           ),
                           const Positioned(
                               top: 5,
@@ -416,6 +423,7 @@ class WhatsAppShareButton extends StatelessWidget {
     final userCubit = BlocProvider.of<UserCubit>(context);
     return InkWell(
       onTap: () async {
+        Logger().i("message");
         try {
           final path = DateTime.now().microsecondsSinceEpoch.toString();
           await screenshotController1
@@ -433,6 +441,242 @@ class WhatsAppShareButton extends StatelessWidget {
               if (userCubit.state.isPremiumUser == false) {
                 BlocProvider.of<AdmobCubit>(context).showAd();
               }
+
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              tr("your_post_is_ready"),
+                              style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 5),
+                            SizedBox(child: Image.file(File(imagePath.path))),
+                            const SizedBox(height: 15),
+                             
+                            // const SizedBox(height: 15),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                PremiumWrapper(
+                                  isPremiumContent: true,
+                                  isPremiumUser: BlocProvider.of<UserCubit>(
+                                          context,
+                                          listen: false)
+                                      .state
+                                      .isPremiumUser,
+                                  child: CColorButton(
+                                    isPremium: false,
+                                    buttonText: tr("download"),
+                                    isBorderButton: true,
+                                    icon: const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 5),
+                                      child: Icon(
+                                        Icons.get_app_rounded,
+                                        color: AppColors.primaryColor,
+                                      ),
+                                    ),
+                                    onTap: () async {
+                                      if (userCubit.state.isPremiumUser ==
+                                          false) {
+                                        showPremiumCustomDialogue(
+                                          context: context,
+                                          title: tr("premium_warning",
+                                              namedArgs: {
+                                                "title": tr("feature")
+                                              }),
+                                          onTap: (() {
+                                            nextScreenWithFadeAnimation(context,
+                                                const PremiumPlanScreen());
+                                          }),
+                                          mq: mq,
+                                        );
+                                      } else {
+                                        String userName =
+                                            userCubit.state.userName;
+                                        String userNumber =
+                                            userCubit.state.userNumber;
+                                        String userId =
+                                            userCubit.state.userId.toString();
+                                        bool isAddLinkDuringShare = userCubit
+                                            .state.isAddLinkDuringShare;
+                                        String promotionLink = "";
+
+                                        removeDownloadKeysInPathTracker();
+                                        pathTracker.add("download");
+                                        try {
+                                          bool? res =
+                                              await GallerySaver.saveImage(
+                                            imagePath.path,
+                                            albumName: "Gita",
+                                          );
+
+                                          toast(tr("downloaded_successfully"));
+                                          if (res != true) {
+                                            BlocProvider.of<UserCubit>(context)
+                                                .sendRatingFeedback(
+                                                    message:
+                                                        'Download Error in home screen:- $res',
+                                                    reason: GErrorVar
+                                                        .errorHomeScreen);
+                                          }
+                                          if (isEdited) {
+                                            BlocProvider.of<PostCubit>(context)
+                                                .sendImageToTelegramEditGroup(
+                                                    postId: postId,
+                                                    isPremium: userCubit
+                                                        .state.isPremiumUser,
+                                                    imagePath: imagePath.path,
+                                                    userName: userName,
+                                                    number: userNumber,
+                                                    promotionLink:
+                                                        promotionLink,
+                                                    withLinkShare:
+                                                        isAddLinkDuringShare,
+                                                    userId: userId);
+                                          } else {
+                                            BlocProvider.of<PostCubit>(context)
+                                                .sendImageToTelegram(
+                                                    postId: postId,
+                                                    isPremium: userCubit
+                                                        .state.isPremiumUser,
+                                                    imagePath: imagePath.path,
+                                                    userName: userName,
+                                                    number: userNumber,
+                                                    promotionLink:
+                                                        promotionLink,
+                                                    withLinkShare:
+                                                        isAddLinkDuringShare,
+                                                    userId: userId);
+                                          }
+
+                                          Navigator.pop(context);
+                                        } catch (e) {
+                                          toast(
+                                              "${tr("downloaded_successfully")}.");
+                                          BlocProvider.of<UserCubit>(context)
+                                              .sendRatingFeedback(
+                                            message:
+                                                'Download Error in home screen:- $e',
+                                            reason: GErrorVar.errorHomeScreen,
+                                          );
+                                        }
+                                      }
+                                    },
+                                    buttonColor: AppColors.primaryColor,
+                                  ),
+                                ),
+                                CColorButton(
+                                  buttonText: tr("share_now"),
+                                  icon: const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 5),
+                                    child: FaIcon(
+                                      FontAwesomeIcons.share,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  buttonColor: AppColors.primaryColor,
+                                  onTap: () async {
+                                    removeDownloadKeysInPathTracker();
+
+                                    String userName = userCubit.state.userName;
+                                    String userNumber =
+                                        userCubit.state.userNumber;
+                                    String userId =
+                                        userCubit.state.userId.toString();
+                                    bool isAddLinkDuringShare =
+                                        userCubit.state.isAddLinkDuringShare;
+                                    String promotionLink = "";
+                                    if (parentScreenName != null) {
+                                      promotionLink = getPromotionLinkForTags(
+                                          userName: userName,
+                                          tag: parentScreenName!,
+                                          userId: userId,
+                                          postId: postId);
+                                    } else {
+                                      promotionLink = getNewPromotionLink(
+                                          userName: userName,
+                                          date: BlocProvider.of<PostCubit>(
+                                                  context,
+                                                  listen: false)
+                                              .state
+                                              .hindiDate,
+                                          userId: userId,
+                                          postId: postId);
+                                    }
+                                    if (isAddLinkDuringShare == false) {
+                                      promotionLink = "";
+                                    }
+                                    await Share.shareFiles([imagePath.path],
+                                        text: promotionLink);
+
+                                    if (postWidgetData.imageLink
+                                        .startsWith("htt")) {
+                                      BlocProvider.of<UserCubit>(context)
+                                          .savedPostDbOperations(
+                                              isAddOperation: true,
+                                              postIdToAdd: int.tryParse(
+                                                      postWidgetData.postId
+                                                          .toString()) ??
+                                                  0,
+                                              postLinkToAdd:
+                                                  postWidgetData.imageLink);
+                                    }
+                                    BlocProvider.of<PostCubit>(context)
+                                        .sendShareResponseToBackendAdmin(postId,
+                                            userId: userId,
+                                            userName: userName,
+                                            userNumber: userNumber);
+
+                                    if (isEdited) {
+                                      BlocProvider.of<PostCubit>(context)
+                                          .sendImageToTelegramEditGroup(
+                                              postId: postId,
+                                              isPremium:
+                                                  userCubit.state.isPremiumUser,
+                                              imagePath: imagePath.path,
+                                              userName: userName,
+                                              number: userNumber,
+                                              promotionLink: promotionLink,
+                                              withLinkShare:
+                                                  isAddLinkDuringShare,
+                                              userId: userId);
+                                    } else {
+                                      BlocProvider.of<PostCubit>(context)
+                                          .sendImageToTelegram(
+                                              postId: postId,
+                                              isPremium:
+                                                  userCubit.state.isPremiumUser,
+                                              imagePath: imagePath.path,
+                                              userName: userName,
+                                              number: userNumber,
+                                              promotionLink: promotionLink,
+                                              withLinkShare:
+                                                  isAddLinkDuringShare,
+                                              userId: userId);
+                                    }
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                          ],
+                        ),
+                      ),
+                    );
+                  });
               // AwesomeDialog(
               //   context: context,
               //   animType: AnimType.bottomSlide,

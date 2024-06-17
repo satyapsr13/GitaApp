@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:gita/Utility/extensions.dart';
+import 'package:logger/logger.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import '../../../../Constants/enums.dart';
@@ -347,37 +348,10 @@ class _GitaGyanSpecificSlokeScreenState
                                           if (state.allGitaSlokeList
                                               .containsKey(index + 1)) {
                                             // Logger().i("Mil gaya sala 1");
-                                            List<GitaSloke> list =
-                                                state.allGitaSlokeList[
-                                                        index + 1] ??
-                                                    [];
-                                            BlocProvider.of<SeriesPostCubit>(
-                                                    context)
-                                                .updateVariables(
-                                              chapter: key,
-                                              gitaSlokeList: list,
-                                              totalSloke: list.length,
-                                            );
-                                            if (list.isNotEmpty) {
-                                              nextScreenReplace(
-                                                  context,
-                                                  GitaGyanSpecificSlokeScreen(
-                                                    chaperNo: key,
-                                                    flutterTts:
-                                                        widget.flutterTts,
-                                                    isDataPresent: true,
-                                                  ));
-                                            } else {
-                                              // Logger().i("Mil gaya sala 2");
-                                              nextScreenReplace(
-                                                  context,
-                                                  GitaGyanSpecificSlokeScreen(
-                                                    chaperNo: key,
-                                                    flutterTts:
-                                                        widget.flutterTts,
-                                                    isDataPresent: false,
-                                                  ));
-                                            }
+                                            navigateIfRequired(
+                                                context: context,
+                                                index: index = 1,
+                                                flutterTts: widget.flutterTts);
                                           } else {
                                             nextScreenReplace(
                                                 context,
@@ -456,19 +430,16 @@ class _GitaGyanSpecificSlokeScreenState
                               physics: const NeverScrollableScrollPhysics(),
                               child: Container(
                                 width: mq.width,
-                                // height: mq.height * 1,
                                 color: Colors.white,
                                 child: Column(
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: PostWidget(
-                                        postWidgetData: initialPostNo != -1
-                                            ? postWidgetDataForChange
-                                            : postWidgetData,
-                                        index: index,
-                                        // showEditAndShare: false,
-                                      ),
+                                          postWidgetData: initialPostNo != -1
+                                              ? postWidgetDataForChange
+                                              : postWidgetData,
+                                          index: index),
                                     ),
                                     Row(
                                       mainAxisAlignment:
@@ -541,6 +512,18 @@ class _GitaGyanSpecificSlokeScreenState
                                           Icons.copy,
                                           size: 20,
                                         )),
+                                    IconButton(
+                                        onPressed: () {
+                                          widget.flutterTts.speak((e.text ?? "")
+                                              .replaceAll(
+                                                  RegExp(
+                                                      r'[0-9\u0966-\u096F.]'),
+                                                  ""));
+                                        },
+                                        icon: const Icon(
+                                          Icons.mic,
+                                          size: 30,
+                                        )),
                                     SizedBox(
                                       width: mq.width,
                                       child: SelectableText(
@@ -560,6 +543,18 @@ class _GitaGyanSpecificSlokeScreenState
                                           Icons.copy,
                                           size: 20,
                                         )),
+                                    IconButton(
+                                        onPressed: () async {
+                                          widget.flutterTts.speak(
+                                              (e.meaning ?? "").replaceAll(
+                                                  RegExp(
+                                                      r'[0-9\u0966-\u096F.]'),
+                                                  ""));
+                                        },
+                                        icon: const Icon(
+                                          Icons.mic,
+                                          size: 30,
+                                        )),
                                     const SizedBox(height: 40),
                                   ],
                                 ),
@@ -578,7 +573,7 @@ class _GitaGyanSpecificSlokeScreenState
   Widget _gitaScreenNavBar() {
     return BlocBuilder<SeriesPostCubit, SeriesPostState>(
         builder: (context, state) {
-      if (state.status != Status.success) {
+      if (state.status == Status.loading || state.status == Status.failure) {
         return const SizedBox();
       }
       int preChapter = (int.tryParse(widget.chaperNo) ?? 0) - 1;
@@ -613,21 +608,19 @@ class _GitaGyanSpecificSlokeScreenState
                 child: TextButton.icon(
                   onPressed: () {
                     if (_tabController.index != 0) {
+                      _tabController.animateTo(_tabController.index - 1);
+                      
+                    } else {
+                      navigateIfRequired(
+                          context: context,
+                          index: preChapter,
+                          flutterTts: widget.flutterTts);
                       // nextScreenReplaceSlideFromLeft(
                       //     context,
                       //     GitaGyanSpecificSlokeScreen(
+                      //       flutterTts: widget.flutterTts,
                       //       chaperNo: (preChapter).toString(),
                       //     ));
-                      _tabController.animateTo(_tabController.index - 1);
-                      // setState(() {
-                      // });
-                    } else {
-                      nextScreenReplaceSlideFromLeft(
-                          context,
-                          GitaGyanSpecificSlokeScreen(
-                            flutterTts: widget.flutterTts,
-                            chaperNo: (preChapter).toString(),
-                          ));
                     }
                   },
                   icon: const Icon(Icons.arrow_back,
@@ -650,12 +643,16 @@ class _GitaGyanSpecificSlokeScreenState
                     if (!isLastSloke) {
                       _tabController.animateTo(_tabController.index + 1);
                     } else {
-                      nextScreenReplaceSlideFromLeft(
-                          context,
-                          GitaGyanSpecificSlokeScreen(
-                            flutterTts: widget.flutterTts,
-                            chaperNo: (nextChapter).toString(),
-                          ));
+                      navigateIfRequired(
+                          context: context,
+                          index: nextChapter,
+                          flutterTts: widget.flutterTts);
+                      // nextScreenReplaceSlideFromLeft(
+                      //     context,
+                      //     GitaGyanSpecificSlokeScreen(
+                      //       flutterTts: widget.flutterTts,
+                      //       chaperNo: (nextChapter).toString(),
+                      //     ));
                     }
                   },
                   icon: const SizedBox(),
@@ -867,5 +864,49 @@ class GitaBannerWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+navigateIfRequired(
+    {required BuildContext context,
+    required int index,
+    required FlutterTts flutterTts}) {
+  if (index < 0) {
+    return;
+  }
+  SeriesPostState state = BlocProvider.of<SeriesPostCubit>(context).state;
+  if (state.allGitaSlokeList.containsKey(index + 1)) {
+    // Logger().i("Mil gaya sala 1");
+    List<GitaSloke> list = state.allGitaSlokeList[index + 1] ?? [];
+    BlocProvider.of<SeriesPostCubit>(context).updateVariables(
+      chapter: index.toString(),
+      gitaSlokeList: list,
+      totalSloke: list.length,
+    );
+    if (list.isNotEmpty) {
+      nextScreenReplace(
+          context,
+          GitaGyanSpecificSlokeScreen(
+              chaperNo: index.toString(),
+              flutterTts: flutterTts,
+              isDataPresent: true));
+    } else {
+      // Logger().i("Mil gaya sala 2");
+      nextScreenReplace(
+          context,
+          GitaGyanSpecificSlokeScreen(
+            chaperNo: index.toString(),
+            flutterTts: flutterTts,
+            isDataPresent: false,
+          ));
+    }
+  } else {
+    nextScreenReplace(
+        context,
+        GitaGyanSpecificSlokeScreen(
+          chaperNo: index.toString(),
+          flutterTts: flutterTts,
+          isDataPresent: false,
+        ));
   }
 }

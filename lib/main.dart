@@ -47,6 +47,8 @@ https://www.figma.com/file/CxZT2MEmc8nfBftLjCkOLX/Rishteyy-UI?node-id=0%3A1&t=PL
 //   await Firebase.initializeApp();
 // }
 
+
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

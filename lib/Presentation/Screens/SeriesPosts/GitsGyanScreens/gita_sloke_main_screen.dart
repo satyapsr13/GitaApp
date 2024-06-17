@@ -152,14 +152,22 @@ class _GitagyanMainScreenState extends State<GitagyanMainScreen> {
       englishTopic: "Moksha Sanyaasa Yoga",
     ),
   ];
-  late FlutterTts flutterTts;
+  FlutterTts flutterTts = FlutterTts();
 
   @override
   void initState() {
-    flutterTts = FlutterTts();
     fetchData();
+    _setTtsParameters();
     pathTracker.add("gita_screen");
     super.initState();
+  }
+
+  Future<void> _setTtsParameters() async {
+    await flutterTts.setLanguage("hi-IN");
+    await flutterTts.setPitch(1); // Set pitch
+    await flutterTts.setSpeechRate(0.5); // Set speech rate
+    await flutterTts.setVolume(1.0); // Set volume
+    // await flutterTts.se(1.0); // Set volume
   }
 
   fetchData() {
@@ -237,6 +245,7 @@ class _GitagyanMainScreenState extends State<GitagyanMainScreen> {
                           GitaAdhyay adhyayName = gitaChapters[index];
                           return InkWell(
                             onTap: () {
+                             
                               Logger().i("Mil gaya sala 0");
                               // Map<int, List<GitaSloke>> tempSlokeList = {};
                               // tempSlokeList.addAll(state.allGitaSlokeList);

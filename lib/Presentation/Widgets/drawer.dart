@@ -28,18 +28,18 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context).size;
-    // PostWidgetModel postWidgetData = PostWidgetModel(
-    //   index: 1,
-    //   imageLink:
-    //       "https://manage.connectup.in/rishteyy/quotes/quoteshindi/motivational/p2_i3_1673443183.jpg",
-    //   postId: "1",
-    //   profilePos: "right",
-    //   profileShape: "round",
-    //   tagColor: "white",
-    //   playStoreBadgePos: "right",
-    //   showName: true,
-    //   showProfile: true,
-    // );
+    PostWidgetModel postWidgetData = PostWidgetModel(
+      index: 1,
+      imageLink:
+          "https://manage.connectup.in/rishteyy/quotes/tags/gita/gita1/Gita_BG2.1.jpg",
+      postId: "1",
+      profilePos: "right",
+      profileShape: "round",
+      tagColor: "white",
+      playStoreBadgePos: "right",
+      showName: true,
+      showProfile: true,
+    );
     return Drawer(
       width: mq.width * 0.8,
       backgroundColor: Colors.transparent,
@@ -62,209 +62,215 @@ class CustomDrawer extends StatelessWidget {
                     width: mq.width * 0.8,
                     child: Column(
                       children: [
-                        // Column(
-                        //   // alignment: Alignment.bottomCenter,
+                        Column(
+                          // alignment: Alignment.bottomCenter,
+                          children: [
+                            Container(
+                              child: Transform.scale(
+                                scale: 0.7,
+                                child: PostWidget(
+                                  isOnlyForControll: true,
+                                  postWidgetData: postWidgetData,
+                                  showEditAndShare: false,
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Text(
+                                  "Download Rishteyy App to make this type of post",
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    backgroundColor: Colors.white,
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 5),
+
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         //   children: [
-                        //     Container(
-                        //       child: Transform.scale(
-                        //         scale: 0.7,
-                        //         child: PostWidget(
-                        //           isOnlyForControll: true,
-                        //           postWidgetData: postWidgetData,
-                        //           showEditAndShare: false,
+                        //     InkWell(
+                        //       onTap: () {
+                        //         BlocProvider.of<PostCubit>(context)
+                        //             .setStateVariables(
+                        //                 isDateVisible:
+                        //                     !postState.isDateVisible);
+                        //       },
+                        //       child: Container(
+                        //         height: 45,
+                        //         width: 45,
+                        //         decoration: BoxDecoration(
+                        //           color: postState.isDateVisible
+                        //               ? AppColors.primaryColor
+                        //               : Colors.grey.withOpacity(0.5),
+                        //           borderRadius: BorderRadius.circular(4),
+                        //         ),
+                        //         child: FittedBox(
+                        //           child: Text(
+                        //             ' Date ',
+                        //             style: TextStyle(
+                        //               color: !postState.isDateVisible
+                        //                   ? Colors.black
+                        //                   : Colors.white,
+                        //             ),
+                        //           ),
                         //         ),
                         //       ),
                         //     ),
-                        //     Text(
-                        //       tr('choose_default_setting'),
-                        //       style: const TextStyle(
-                        //         backgroundColor: Colors.white,
-                        //         fontSize: 15,
-                        //         color: Colors.black,
+                        //     InkWell(
+                        //       onTap: () {
+                        //         BlocProvider.of<PostCubit>(context)
+                        //             .setStateVariables(
+                        //                 isNameVisible:
+                        //                     !(postState.isNameVisible));
+                        //       },
+                        //       child: Container(
+                        //         height: 45,
+                        //         width: 45,
+                        //         decoration: BoxDecoration(
+                        //           color: postState.isNameVisible
+                        //               ? AppColors.primaryColor
+                        //               : Colors.grey.withOpacity(0.5),
+                        //           borderRadius: BorderRadius.circular(4),
+                        //         ),
+                        //         child: FittedBox(
+                        //           child: Text(
+                        //             ' Name ',
+                        //             style: TextStyle(
+                        //                 color: !postState.isNameVisible
+                        //                     ? Colors.black
+                        //                     : Colors.white),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     InkWell(
+                        //       onTap: () {
+                        //         BlocProvider.of<PostCubit>(context)
+                        //             .setStateVariables(
+                        //                 isOccupationVisible:
+                        //                     !postState.isOccupationVisible);
+                        //       },
+                        //       child: Container(
+                        //         height: 45,
+                        //         width: 45,
+                        //         decoration: BoxDecoration(
+                        //           color: postState.isOccupationVisible
+                        //               ? AppColors.primaryColor
+                        //               : Colors.grey.withOpacity(0.5),
+                        //           borderRadius: BorderRadius.circular(4),
+                        //         ),
+                        //         child: Icon(
+                        //           Icons.work,
+                        //           size: 15,
+                        //           color: !postState.isOccupationVisible
+                        //               ? Colors.black
+                        //               : Colors.white,
+                        //         ),
                         //       ),
                         //     ),
                         //   ],
                         // ),
 
-                        const SizedBox(height: 5),
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                BlocProvider.of<PostCubit>(context)
-                                    .setStateVariables(
-                                        isDateVisible:
-                                            !postState.isDateVisible);
-                              },
-                              child: Container(
-                                height: 45,
-                                width: 45,
-                                decoration: BoxDecoration(
-                                  color: postState.isDateVisible
-                                      ? AppColors.primaryColor
-                                      : Colors.grey.withOpacity(0.5),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: FittedBox(
-                                  child: Text(
-                                    ' Date ',
-                                    style: TextStyle(
-                                      color: !postState.isDateVisible
-                                          ? Colors.black
-                                          : Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                BlocProvider.of<PostCubit>(context)
-                                    .setStateVariables(
-                                        isNameVisible:
-                                            !(postState.isNameVisible));
-                              },
-                              child: Container(
-                                height: 45,
-                                width: 45,
-                                decoration: BoxDecoration(
-                                  color: postState.isNameVisible
-                                      ? AppColors.primaryColor
-                                      : Colors.grey.withOpacity(0.5),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: FittedBox(
-                                  child: Text(
-                                    ' Name ',
-                                    style: TextStyle(
-                                        color: !postState.isNameVisible
-                                            ? Colors.black
-                                            : Colors.white),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                BlocProvider.of<PostCubit>(context)
-                                    .setStateVariables(
-                                        isOccupationVisible:
-                                            !postState.isOccupationVisible);
-                              },
-                              child: Container(
-                                height: 45,
-                                width: 45,
-                                decoration: BoxDecoration(
-                                  color: postState.isOccupationVisible
-                                      ? AppColors.primaryColor
-                                      : Colors.grey.withOpacity(0.5),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Icon(
-                                  Icons.work,
-                                  size: 15,
-                                  color: !postState.isOccupationVisible
-                                      ? Colors.black
-                                      : Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 15),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                BlocProvider.of<PostCubit>(context)
-                                    .setStateVariables(
-                                        isNumberVisible:
-                                            !postState.isNumberVisible);
-                              },
-                              child: Container(
-                                height: 45,
-                                width: 45,
-                                decoration: BoxDecoration(
-                                  color: postState.isNumberVisible
-                                      ? AppColors.primaryColor
-                                      : Colors.grey.withOpacity(0.5),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Icon(
-                                  Icons.phone,
-                                  size: 15,
-                                  color: !postState.isNumberVisible
-                                      ? Colors.black
-                                      : Colors.white,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                BlocProvider.of<PostCubit>(context)
-                                    .setStateVariables(
-                                        isProfileVisible:
-                                            !postState.isProfileVisible);
-                              },
-                              child: Container(
-                                height: 45,
-                                width: 45,
-                                decoration: BoxDecoration(
-                                  color: postState.isProfileVisible
-                                      ? AppColors.primaryColor
-                                      : Colors.grey.withOpacity(0.5),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Icon(
-                                  Icons.person,
-                                  size: 15,
-                                  color: !postState.isProfileVisible
-                                      ? Colors.black
-                                      : Colors.white,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                BlocProvider.of<PostCubit>(context)
-                                    .setStateVariables(
-                                        isFrameVisible:
-                                            !postState.isFrameVisible);
-                              },
-                              child: Container(
-                                height: 45,
-                                width: 45,
-                                decoration: BoxDecoration(
-                                  color: postState.isFrameVisible
-                                      ? AppColors.primaryColor
-                                      : Colors.grey.withOpacity(0.5),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: FittedBox(
-                                  child: Text(
-                                    ' Frame ',
-                                    style: TextStyle(
-                                      color: !postState.isFrameVisible
-                                          ? Colors.black
-                                          : Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        // const SizedBox(height: 15),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //   children: [
+                        //     InkWell(
+                        //       onTap: () {
+                        //         BlocProvider.of<PostCubit>(context)
+                        //             .setStateVariables(
+                        //                 isNumberVisible:
+                        //                     !postState.isNumberVisible);
+                        //       },
+                        //       child: Container(
+                        //         height: 45,
+                        //         width: 45,
+                        //         decoration: BoxDecoration(
+                        //           color: postState.isNumberVisible
+                        //               ? AppColors.primaryColor
+                        //               : Colors.grey.withOpacity(0.5),
+                        //           borderRadius: BorderRadius.circular(4),
+                        //         ),
+                        //         child: Icon(
+                        //           Icons.phone,
+                        //           size: 15,
+                        //           color: !postState.isNumberVisible
+                        //               ? Colors.black
+                        //               : Colors.white,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     InkWell(
+                        //       onTap: () {
+                        //         BlocProvider.of<PostCubit>(context)
+                        //             .setStateVariables(
+                        //                 isProfileVisible:
+                        //                     !postState.isProfileVisible);
+                        //       },
+                        //       child: Container(
+                        //         height: 45,
+                        //         width: 45,
+                        //         decoration: BoxDecoration(
+                        //           color: postState.isProfileVisible
+                        //               ? AppColors.primaryColor
+                        //               : Colors.grey.withOpacity(0.5),
+                        //           borderRadius: BorderRadius.circular(4),
+                        //         ),
+                        //         child: Icon(
+                        //           Icons.person,
+                        //           size: 15,
+                        //           color: !postState.isProfileVisible
+                        //               ? Colors.black
+                        //               : Colors.white,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     InkWell(
+                        //       onTap: () {
+                        //         BlocProvider.of<PostCubit>(context)
+                        //             .setStateVariables(
+                        //                 isFrameVisible:
+                        //                     !postState.isFrameVisible);
+                        //       },
+                        //       child: Container(
+                        //         height: 45,
+                        //         width: 45,
+                        //         decoration: BoxDecoration(
+                        //           color: postState.isFrameVisible
+                        //               ? AppColors.primaryColor
+                        //               : Colors.grey.withOpacity(0.5),
+                        //           borderRadius: BorderRadius.circular(4),
+                        //         ),
+                        //         child: FittedBox(
+                        //           child: Text(
+                        //             ' Frame ',
+                        //             style: TextStyle(
+                        //               color: !postState.isFrameVisible
+                        //                   ? Colors.black
+                        //                   : Colors.white,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
 
                         const SizedBox(height: 15),
 
                         InkWell(
                           onTap: () async {
                             await Share.share(
-                                "https://play.google.com/store/apps/details?id=com.aeonian.rishteyy",
+                                "https://play.google.com/store/apps/details?id=com.aeonian.gita",
                                 subject: getOldPromotionLink());
                           },
                           child: ListTile(
@@ -615,24 +621,21 @@ class CustomDrawer extends StatelessWidget {
                           ),
                         ),
                         InkWell(
-                          onTap: () async {
-                            nextScreenWithFadeAnimation(
-                                context, RatingScreen());
-                          },
-                          child: ListTile(
-                            leading: const Icon(
-                              Icons.star_border,
-                              color: Color(0xffFF9200),
-                            ),
-                            title: Text(
-                              tr('rate_us'),
-                              style: const TextStyle(color: Color(0xffFF9200)),
-                            ),
-                          ),
-                        ),
-                         
+                            onTap: () async {
+                              nextScreenWithFadeAnimation(
+                                  context, RatingScreen());
+                            },
+                            child: ListTile(
+                                leading: const Icon(
+                                  Icons.star_border,
+                                  color: Color(0xffFF9200),
+                                ),
+                                title: Text(
+                                  tr('rate_us'),
+                                  style:
+                                      const TextStyle(color: Color(0xffFF9200)),
+                                ))),
 
-                        
                         // Image.asset("assets/images/sticker_3.png"),
                       ],
                     ),
