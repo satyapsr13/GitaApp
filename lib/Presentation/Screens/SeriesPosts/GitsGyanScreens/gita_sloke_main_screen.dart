@@ -5,14 +5,19 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gita/Presentation/Widgets/drawer.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:logger/logger.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 // import 'package:flutter_tts';
 import '../../../../Constants/constants.dart';
 import '../../../../Constants/locations.dart';
 import '../../../../Data/model/api/SeriesPostResponse/gita_post_response.dart';
+import '../../../../Data/services/secure_storage.dart';
 import '../../../../Logic/Cubit/SeriesPostCubit/series_post_cubit.dart';
+import '../../../../Logic/Cubit/locale_cubit/locale_cubit.dart';
 import '../../../../Utility/next_screen.dart';
 import 'gita_sloke_specific_post_screen.dart';
 
@@ -158,7 +163,7 @@ class _GitagyanMainScreenState extends State<GitagyanMainScreen> {
   void initState() {
     fetchData();
     _setTtsParameters();
-    pathTracker.add("gita_screen");
+    checkForUpdates();
     super.initState();
   }
 
@@ -170,22 +175,46 @@ class _GitagyanMainScreenState extends State<GitagyanMainScreen> {
     // await flutterTts.se(1.0); // Set volume
   }
 
-  fetchData() {
-    if (BlocProvider.of<SeriesPostCubit>(context)
-            .state
-            .allGitaSlokeList
-            .length <
-        18) {
-      for (int i = 1; i <= 18; ++i) {
-        if (!BlocProvider.of<SeriesPostCubit>(context)
-            .state
-            .allGitaSlokeList
-            .containsKey(i)) {
-          BlocProvider.of<SeriesPostCubit>(context)
-              .fetchGitaPosts(chapter: i.toString());
+  void checkForUpdates() {
+    try {
+      InAppUpdate.checkForUpdate().then((info) {
+        setState(() {
+          if (info.updateAvailability == UpdateAvailability.updateAvailable) {
+            update();
+          }
+        });
+      });
+    } catch (e) {}
+  }
+
+  Future<void> update() async {
+    await InAppUpdate.startFlexibleUpdate();
+    InAppUpdate.completeFlexibleUpdate().then((value) {});
+  }
+
+  fetchData({bool fetchAllChapters = false}) {
+    try {
+      if (BlocProvider.of<SeriesPostCubit>(context)
+              .state
+              .allGitaSlokeList
+              .length <
+          18) {
+        for (int i = 1; i <= 18; ++i) {
+          if (fetchAllChapters) {
+            BlocProvider.of<SeriesPostCubit>(context)
+                .fetchGitaPosts(chapter: i.toString());
+          } else {
+            if (!BlocProvider.of<SeriesPostCubit>(context)
+                .state
+                .allGitaSlokeList
+                .containsKey(i)) {
+              BlocProvider.of<SeriesPostCubit>(context)
+                  .fetchGitaPosts(chapter: i.toString());
+            }
+          }
         }
       }
-    }
+    } catch (e) {}
   }
 
   @override
@@ -196,6 +225,7 @@ class _GitagyanMainScreenState extends State<GitagyanMainScreen> {
   }
 
   bool isEnglish = false;
+  final SecureStorage _secureStorage = SecureStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -211,9 +241,68 @@ class _GitagyanMainScreenState extends State<GitagyanMainScreen> {
               color: Colors.black,
             ),
           ),
+          actions: [
+            // IconButton(
+            //   icon: const Icon(
+            //     FontAwesomeIcons.language,
+            //   ),
+            //   tooltip: getLocale() == "hi" ? "English" : 'हिन्दी',
+            //   onPressed: () async {
+
+            //     await context.setLocale(value);
+            //     BlocProvider.of<LocaleCubit>(context).updateLocale(value);
+            //     var localeString = value.languageCode +
+            //         (value.countryCode != null ? '_${value.countryCode}' : '');
+            //     await _secureStorage.persistLocale(localeString);
+            //     toast("Language Changed");
+            //   },
+            // ),
+            PopupMenuButton<String>(
+              elevation: 10,
+              position: PopupMenuPosition.under,
+              onSelected: ((value) async {
+                if (value == "English") {
+                  const Locale value = Locale("en");
+                  await context.setLocale(value);
+                  BlocProvider.of<LocaleCubit>(context).updateLocale(value);
+                  var localeString = value.languageCode +
+                      (value.countryCode != null
+                          ? '_${value.countryCode}'
+                          : '');
+                  await _secureStorage.persistLocale(localeString);
+                  toast("Language Changed");
+                } else {
+                  const Locale value = Locale("hi");
+                  await context.setLocale(value);
+                  BlocProvider.of<LocaleCubit>(context).updateLocale(value);
+                  var localeString = value.languageCode +
+                      (value.countryCode != null
+                          ? '_${value.countryCode}'
+                          : '');
+                  await _secureStorage.persistLocale(localeString);
+                  toast("Language Changed");
+                }
+              }),
+              itemBuilder: (BuildContext context) {
+                return {
+                  'English',
+                  'हिन्दी',
+                }.map((String choice) {
+                  return PopupMenuItem<String>(
+                    value: choice,
+                    child: Text(choice),
+                  );
+                }).toList();
+              },
+              child: const Padding(
+                  padding: EdgeInsets.only(right: 20),
+                  child: Icon(FontAwesomeIcons.language, color: Colors.black)),
+            ),
+          ],
+
           // title: const Text('Rishteyy:- Gita Gyan'),
         ),
-        drawer: CustomDrawer(),
+        drawer: const CustomDrawer(),
         body: SingleChildScrollView(
           child: BlocBuilder<SeriesPostCubit, SeriesPostState>(
             builder: (context, state) {
@@ -245,7 +334,6 @@ class _GitagyanMainScreenState extends State<GitagyanMainScreen> {
                           GitaAdhyay adhyayName = gitaChapters[index];
                           return InkWell(
                             onTap: () {
-                             
                               Logger().i("Mil gaya sala 0");
                               // Map<int, List<GitaSloke>> tempSlokeList = {};
                               // tempSlokeList.addAll(state.allGitaSlokeList);

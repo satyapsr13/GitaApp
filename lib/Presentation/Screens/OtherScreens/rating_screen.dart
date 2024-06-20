@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:gita/Constants/constants.dart';
 import 'package:lottie/lottie.dart';
 import 'package:overlay_support/overlay_support.dart'; 
 import 'package:url_launcher/url_launcher.dart';
@@ -93,7 +94,7 @@ class RatingScreen extends StatelessWidget {
                                   .updateStateVariables(userAppRating: rating);
                               if (rating > 3.9) {
                                 Uri uri = Uri.parse(
-                                    "https://play.google.com/store/apps/details?id=com.aeonian.rishteyy&reviewId=0");
+                                    appLink);
                                 if (await canLaunchUrl(uri)) {
                                   launchUrl(uri,
                                       mode: LaunchMode.externalApplication);

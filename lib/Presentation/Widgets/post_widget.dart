@@ -124,12 +124,14 @@ class _PostWidgetState extends State<PostWidget> {
                                       : const BorderRadius.all(
                                           Radius.circular(10)),
                                 ),
-                                child: CachedNetworkImage(
-                                  imageUrl: widget.postWidgetData.imageLink,
-                                  // progressIndicatorBuilder:
-                                  //     ((context, url, progress) =>
-                                  //          ),
-                                )),
+                                child: widget.postWidgetData.imageLink
+                                        .startsWith("htt")
+                                    ? CachedNetworkImage(
+                                        imageUrl:
+                                            widget.postWidgetData.imageLink,
+                                      )
+                                    : Image.asset(
+                                        widget.postWidgetData.imageLink)),
                           ),
                           const Positioned(
                               top: 5,
@@ -461,7 +463,7 @@ class WhatsAppShareButton extends StatelessWidget {
                             const SizedBox(height: 5),
                             SizedBox(child: Image.file(File(imagePath.path))),
                             const SizedBox(height: 15),
-                             
+
                             // const SizedBox(height: 15),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

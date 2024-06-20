@@ -1,26 +1,21 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../Constants/colors.dart';
 import '../../Constants/constants.dart';
 import '../../Data/model/ObjectModels/post_widget_model.dart';
-import '../../Data/services/secure_storage.dart';
 import '../../Logic/Cubit/Posts/posts_cubit.dart';
 import '../../Logic/Cubit/user_cubit/user_cubit.dart';
-import '../../Test/test_home_screen.dart';
 import '../../Utility/common.dart';
 import '../../Utility/next_screen.dart';
 import '../Screens/OtherScreens/donate.screen.dart';
 import '../Screens/OtherScreens/rating_screen.dart';
-import '../Screens/language_selection_screen.dart';
 import 'post_widget.dart';
 
 class CustomDrawer extends StatelessWidget {
-  CustomDrawer({super.key});
+  const CustomDrawer({super.key});
 
   // SecureStorage storage = SecureStorage();
 
@@ -30,8 +25,7 @@ class CustomDrawer extends StatelessWidget {
     final mq = MediaQuery.of(context).size;
     PostWidgetModel postWidgetData = PostWidgetModel(
       index: 1,
-      imageLink:
-          "https://manage.connectup.in/rishteyy/quotes/tags/gita/gita1/Gita_BG2.1.jpg",
+      imageLink: "assets/images/example.jpg",
       postId: "1",
       profilePos: "right",
       profileShape: "round",
@@ -75,13 +69,21 @@ class CustomDrawer extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Visibility(
-                              child: Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Text(
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: TextButton(
+                                onPressed: () async {
+                                  Uri uri = Uri.parse(
+                                      "https://play.google.com/store/apps/details?id=com.aeonian.rishteyy");
+                                  if (await canLaunchUrl(uri)) {
+                                    launchUrl(uri,
+                                        mode: LaunchMode.externalApplication);
+                                  }
+                                },
+                                child: const Text(
                                   "Download Rishteyy App to make this type of post",
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     backgroundColor: Colors.white,
                                     fontSize: 15,
                                     color: Colors.black,
@@ -269,8 +271,7 @@ class CustomDrawer extends StatelessWidget {
 
                         InkWell(
                           onTap: () async {
-                            await Share.share(
-                                "https://play.google.com/store/apps/details?id=com.aeonian.gita",
+                            await Share.share(appLink,
                                 subject: getOldPromotionLink());
                           },
                           child: ListTile(
@@ -370,22 +371,22 @@ class CustomDrawer extends StatelessWidget {
                         //   ],
                         // ),
 
-                        InkWell(
-                          onTap: () {
-                            nextScreen(
-                                context,
-                                const LanguageSelectionScreen(
-                                    isOnlySwitchLanguage: true));
-                          },
-                          child: ListTile(
-                            leading: const Icon(
-                              Icons.language,
-                            ),
-                            title: Text(
-                              tr('switch_language'),
-                            ),
-                          ),
-                        ),
+                        // InkWell(
+                        //   onTap: () {
+                        //     nextScreen(
+                        //         context,
+                        //         const LanguageSelectionScreen(
+                        //             isOnlySwitchLanguage: true));
+                        //   },
+                        //   child: ListTile(
+                        //     leading: const Icon(
+                        //       Icons.language,
+                        //     ),
+                        //     title: Text(
+                        //       tr('switch_language'),
+                        //     ),
+                        //   ),
+                        // ),
 
                         // BlocBuilder<PostCubit, PostState>(
                         //     builder: (context, state) {

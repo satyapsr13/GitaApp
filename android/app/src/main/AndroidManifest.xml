@@ -6,7 +6,7 @@
     </intent>
    </queries>
    <application
-        android:label="Shreemad Bhagwat Gita"
+        android:label="Bhagwat Gita - All 700 Shloks"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

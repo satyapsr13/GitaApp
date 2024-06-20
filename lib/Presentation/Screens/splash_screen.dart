@@ -47,98 +47,51 @@ class _SplashScreenState extends State<SplashScreen> {
     // }
 
     Timer(const Duration(seconds: 2), () async {
-      if (widget.notificationFromFirebase != null) {
-        await MyApp.navigatorKey.currentState
-            ?.pushReplacement(MaterialPageRoute(builder: (context) {
-          String title =
-              widget.notificationFromFirebase!.data['title'] ?? "Motivational";
-          String id = widget.notificationFromFirebase!.data['id'] ?? "1";
-          String keyWord = widget.notificationFromFirebase!.data['keyword'] ??
-              "good-morning";
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+        return (widget.isLoggedIn != true)
+            ? const GitagyanMainScreen()
+            : const GitagyanMainScreen();
+      })).then((value) {});
+      // if (widget.notificationFromFirebase != null) {
+      //   await MyApp.navigatorKey.currentState
+      //       ?.pushReplacement(MaterialPageRoute(builder: (context) {
+      //     String title =
+      //         widget.notificationFromFirebase!.data['title'] ?? "Motivational";
+      //     String id = widget.notificationFromFirebase!.data['id'] ?? "1";
+      //     String keyWord = widget.notificationFromFirebase!.data['keyword'] ??
+      //         "good-morning";
 
-          if (keyWord.isEmpty) {
-            return SpecificCategoryScreen(
-              categoryTitleEnglish: title,
-              categoryTitleHindi: title,
-              postId: id,
-            );
-          } else {
-            return SpecificTagsScreen(
-              categoryTitleEnglish: title,
-              categoryTitleHindi: title,
-              postKeyword: keyWord,
-            );
-          }
-          // }
-        }));
-      } else {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) {
-          return (widget.isLoggedIn != true)
-              ? const GitagyanMainScreen()
-              : const GitagyanMainScreen();
-        })).then((value) {});
-      }
+      //     if (keyWord.isEmpty) {
+      //       return SpecificCategoryScreen(
+      //         categoryTitleEnglish: title,
+      //         categoryTitleHindi: title,
+      //         postId: id,
+      //       );
+      //     } else {
+      //       return SpecificTagsScreen(
+      //         categoryTitleEnglish: title,
+      //         categoryTitleHindi: title,
+      //         postKeyword: keyWord,
+      //       );
+      //     }
+      //     // }
+      //   }));
+      // } else {
+
+      // }
     });
-    // BlocProvider.of<UserCubit>(context).recoverFromLocalStorage();
-    // if (widget.isLoggedIn == true) {
-    //   if ((BlocProvider.of<UserCubit>(context, listen: false).state.userId <
-    //           1) ||
-    //       (BlocProvider.of<UserCubit>(context, listen: false)
-    //               .state
-    //               .againUpdateProfileUrlInServer ==
-    //           true)) {
-    //     BlocProvider.of<UserCubit>(context).getProfileData();
-    //   }
-    //   BlocProvider.of<UserCubit>(context).loadImageAndName();
-    //   if (BlocProvider.of<UserCubit>(context, listen: false)
-    //       .state
-    //       .savedPostList
-    //       .isEmpty) {
-    //     BlocProvider.of<UserCubit>(context).savedPostDbOperations();
-    //   }
-    // } 
-    // BlocProvider.of<StickerCubit>(context).fetchStickers();
   }
 
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context).size;
-    return Scaffold(
-        body: Container(
+    return Container(
       width: mq.width,
       height: mq.height,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color(0xff233554),
-            Color(0xff0a192f),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          stops: [0, 1],
-        ),
+      child: Image.asset(
+        AppImages.splashsscreen,
+        fit: BoxFit.cover,
       ),
-      child: SizedBox(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: mq.width * 0.26,
-              height: mq.width * 0.26,
-              child: Image.asset(
-                AppImages.gradientLogo,
-              ),
-            ),
-            SizedBox(
-              width: mq.width * 0.45,
-              height: mq.width * 0.45,
-              child: Image.asset(AppImages.rishteyTag),
-            ),
-          ],
-        ),
-      ),
-    ));
+    );
   }
 }

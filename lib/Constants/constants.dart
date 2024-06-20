@@ -57,7 +57,8 @@ Map<String, BorderRadiusGeometry> rishteyTagStringToBorderRadius = {
 //   11: "Nov",
 //   12: "Dec",
 // };
-
+const String appLink =
+    "https://play.google.com/store/apps/details?id=com.aeonian.gita";
 // Map<int, String> intToDay = {
 //   7: "रविवार",
 //   1: "सोमवार",
@@ -352,6 +353,7 @@ class GErrorVar {
 }
 
 List<String> pathTracker = [
+  "From Gita App",
   "start",
 ];
 

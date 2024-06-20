@@ -5,6 +5,7 @@ class AppImages {
   static const String playStore = "assets/images/playstore.png";
   static const String logo = "assets/images/Logo_04.svg";
   static const String gradientLogo = "assets/images/gradient_logo.png";
+  static const String splashsscreen = "assets/images/splash_screen.png";
   static const String addImageIcon = "assets/images/add_image_icon.png";
   static const String rishteyTag = "assets/images/rishtey_cursive.png";
   static const String gitaBanner = "assets/images/gita_title_bg.png";
