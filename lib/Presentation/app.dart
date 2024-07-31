@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gita/Constants/constants.dart';
 import 'package:overlay_support/overlay_support.dart';
 import '../Constants/colors.dart';
 import '../Logic/Cubit/locale_cubit/locale_cubit.dart';
@@ -59,7 +60,7 @@ class MyApp extends StatelessWidget {
                     cardTheme: const CardTheme(surfaceTintColor: Colors.white),
                     iconTheme: const IconThemeData(color: Colors.black),
                     backgroundColor: Colors.white),
-                title: 'Rishteyy',
+                title: iAppName,
                 supportedLocales: context.supportedLocales,
                 home: SplashScreen(
                     isLoggedIn: isLoggedIn,

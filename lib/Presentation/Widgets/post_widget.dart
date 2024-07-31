@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:ui';
 
 // import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -11,19 +10,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gallery_saver/gallery_saver.dart';
-import 'package:gita/Presentation/Widgets/loading_builder.dart';
 import 'package:logger/logger.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../Constants/colors.dart';
 import '../../Constants/constants.dart';
 import '../../Constants/locations.dart';
 import '../../Data/model/ObjectModels/post_widget_model.dart';
-import '../../Data/model/api/frames_response.dart';
 import '../../Logic/Cubit/AdmobCubit/admob_ads_cubit.dart';
 import '../../Logic/Cubit/PostEditorCubit/post_editor_cubit.dart';
 import '../../Logic/Cubit/Posts/posts_cubit.dart';
@@ -33,14 +29,11 @@ import '../../Utility/common.dart';
 import '../../Utility/next_screen.dart';
 import '../Screens/PostsScreens/PostEditScreenComponents/editor_date_tag_widget.dart';
 import '../Screens/PostsScreens/PostEditScreenComponents/positions_helper_function.dart';
-import '../Screens/PostsScreens/PostFrames/post_frames.dart';
 import '../Screens/PostsScreens/post_edit_screen.dart';
 import '../Screens/PremiumPlanScreens/premium_plan_screen.dart';
 import '../Screens/Tools/premium_wrapper.dart';
 import 'Buttons/ccolor_button.dart';
-import 'Buttons/switch_button.dart';
 import 'Dialogue/dialogue.dart';
-import 'frame_to_frame_details.dart';
 
 class PostWidget extends StatefulWidget {
   final PostWidgetModel postWidgetData;

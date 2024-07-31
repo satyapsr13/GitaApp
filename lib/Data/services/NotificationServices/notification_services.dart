@@ -2,11 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:logger/logger.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 import '../../../Presentation/Screens/specific_category_screen.dart';
 import '../../../Presentation/app.dart';
-import '../secure_storage.dart'; 
+import '../secure_storage.dart';
 
 class NotificationServices {
   final FlutterLocalNotificationsPlugin notificationsPlugin =
@@ -22,21 +23,22 @@ class NotificationServices {
       initilizationSettings,
       onDidReceiveNotificationResponse:
           (NotificationResponse notificationResponse) async {
-        if (DateTime.now().hour < 12) {
-          await MyApp.navigatorKey.currentState?.push(MaterialPageRoute(
-              builder: (context) => const SpecificCategoryScreen(
-                    categoryTitleEnglish: 'Good Morning',
-                    categoryTitleHindi: 'शुभ प्रभात',
-                    postId: '9',
-                  )));
-        } else {
-          await MyApp.navigatorKey.currentState?.push(MaterialPageRoute(
-              builder: (context) => const SpecificCategoryScreen(
-                    categoryTitleEnglish: 'Good Night',
-                    categoryTitleHindi: 'शुभ रात्रि',
-                    postId: '1',
-                  )));
-        }
+        Logger().i(notificationResponse.payload);
+        // if (DateTime.now().hour < 12) {
+        //   await MyApp.navigatorKey.currentState?.push(MaterialPageRoute(
+        //       builder: (context) => const SpecificCategoryScreen(
+        //             categoryTitleEnglish: 'Good Morning',
+        //             categoryTitleHindi: 'शुभ प्रभात',
+        //             postId: '9',
+        //           )));
+        // } else {
+        //   await MyApp.navigatorKey.currentState?.push(MaterialPageRoute(
+        //       builder: (context) => const SpecificCategoryScreen(
+        //             categoryTitleEnglish: 'Good Night',
+        //             categoryTitleHindi: 'शुभ रात्रि',
+        //             postId: '1',
+        //           )));
+        // }
       },
     ).onError((error, stackTrace) {
       return null;

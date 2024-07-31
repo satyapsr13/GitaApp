@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gita/Constants/constants.dart';
 import 'package:lottie/lottie.dart';
-import 'package:overlay_support/overlay_support.dart'; 
+import 'package:overlay_support/overlay_support.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Logic/Cubit/user_cubit/user_cubit.dart';
@@ -25,7 +25,7 @@ class RatingScreen extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
-            'Rate Risheyy App',
+            'Rate Shrimad Bhagwat Geeta App',
             style: TextStyle(
               color: Colors.black,
             ),
@@ -93,8 +93,7 @@ class RatingScreen extends StatelessWidget {
                               BlocProvider.of<UserCubit>(context)
                                   .updateStateVariables(userAppRating: rating);
                               if (rating > 3.9) {
-                                Uri uri = Uri.parse(
-                                    appLink);
+                                Uri uri = Uri.parse(appLink);
                                 if (await canLaunchUrl(uri)) {
                                   launchUrl(uri,
                                       mode: LaunchMode.externalApplication);
@@ -225,8 +224,7 @@ class RatingScreen extends StatelessWidget {
                                                             message:
                                                                 messageController
                                                                     .text,
-                                                                    reason:"rating"
-                                                                    );
+                                                            reason: "rating");
                                                     Navigator.pop(context);
                                                     toast(tr(
                                                         "thanks_for_feedback"));

@@ -1,24 +1,25 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+ 
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart'; 
 import 'package:gita/Presentation/Widgets/drawer.dart';
 import 'package:in_app_update/in_app_update.dart';
 import 'package:logger/logger.dart';
 import 'package:overlay_support/overlay_support.dart';
 
-// import 'package:flutter_tts';
-import '../../../../Constants/constants.dart';
 import '../../../../Constants/locations.dart';
 import '../../../../Data/model/api/SeriesPostResponse/gita_post_response.dart';
 import '../../../../Data/services/secure_storage.dart';
 import '../../../../Logic/Cubit/SeriesPostCubit/series_post_cubit.dart';
 import '../../../../Logic/Cubit/locale_cubit/locale_cubit.dart';
 import '../../../../Utility/next_screen.dart';
+import '../../Notification/notification_screen.dart';
 import 'gita_sloke_specific_post_screen.dart';
 
 class GitagyanMainScreen extends StatefulWidget {
@@ -158,13 +159,24 @@ class _GitagyanMainScreenState extends State<GitagyanMainScreen> {
     ),
   ];
   FlutterTts flutterTts = FlutterTts();
+  static const platform = MethodChannel('com.aeonian.gita/alarm_permission');
 
   @override
   void initState() {
+    // requestNotificationPermissions();
+    // requestExactAlarmPermission();
     fetchData();
     _setTtsParameters();
     checkForUpdates();
     super.initState();
+  }
+
+  Future<void> requestExactAlarmPermission() async {
+    try {
+      await platform.invokeMethod('requestExactAlarmPermission');
+    } on PlatformException catch (e) {
+      print("Failed to request exact alarm permission: ${e.message}");
+    }
   }
 
   Future<void> _setTtsParameters() async {
@@ -226,6 +238,32 @@ class _GitagyanMainScreenState extends State<GitagyanMainScreen> {
 
   bool isEnglish = false;
   final SecureStorage _secureStorage = SecureStorage();
+  Future<void> scheduleNotification({
+    required int id,
+    required String title,
+    required String body,
+    required String imageUrl,
+    required DateTime scheduledDate,
+  }) async {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: id,
+        channelKey: 'basic_channel',
+        title: title,
+        body: body,
+        bigPicture: imageUrl,
+        // notificationLayout: NotificationLayout.BigText,
+      ),
+      schedule: NotificationCalendar.fromDate(date: scheduledDate),
+    );
+  }
+
+  Future<void> requestNotificationPermissions() async {
+    bool isAllowed = await AwesomeNotifications().isNotificationAllowed();
+    if (!isAllowed) {
+      await AwesomeNotifications().requestPermissionToSendNotifications();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -243,18 +281,35 @@ class _GitagyanMainScreenState extends State<GitagyanMainScreen> {
           ),
           actions: [
             // IconButton(
+            //     onPressed: () async {
+            //       // try {
+            //       //   for (int i = 1; i < 10; i++) {
+            //       //     await scheduleNotification(
+            //       //         body: 'hi hi',
+            //       //         id: 21 + i,
+            //       //         imageUrl: AppImages.gitaMainBanner,
+            //       //         scheduledDate: DateTime.now()
+            //       //             .add(Duration(seconds: (1 * i) + 5)),
+            //       //         title: 'Test Notitication $i');
+            //       //   }
+            //       // } catch (e) {
+            //       //   Logger().i(e);
+            //       // }
+            //       // nextScreen(context, const NotificationScreen());
+            //     },
+            //     icon: const Icon(
+            //       Icons.person,
+            //       size: 20,
+            //     )),
+            // IconButton(
             //   icon: const Icon(
-            //     FontAwesomeIcons.language,
+            //     FontAwesomeIcons.bell,
+            //     color: Color(0xffFFD700),
             //   ),
-            //   tooltip: getLocale() == "hi" ? "English" : 'हिन्दी',
+            //   tooltip: 'Notification',
             //   onPressed: () async {
-
-            //     await context.setLocale(value);
-            //     BlocProvider.of<LocaleCubit>(context).updateLocale(value);
-            //     var localeString = value.languageCode +
-            //         (value.countryCode != null ? '_${value.countryCode}' : '');
-            //     await _secureStorage.persistLocale(localeString);
-            //     toast("Language Changed");
+                
+            //     nextScreen(context, const NotificationScreen());
             //   },
             // ),
             PopupMenuButton<String>(

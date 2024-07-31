@@ -43,31 +43,16 @@ Map<String, BorderRadiusGeometry> rishteyTagStringToBorderRadius = {
     bottomRight: Radius.circular(10),
   ),
 };
-// Map<int, String> intToMonth = {
-//   1: "Jan",
-//   2: "Feb",
-//   3: "Mar",
-//   4: "Apr",
-//   5: "May",
-//   6: "Jun",
-//   7: "Jul",
-//   8: "Aug",
-//   9: "Sep",
-//   10: "Oct",
-//   11: "Nov",
-//   12: "Dec",
-// };
+
 const String appLink =
     "https://play.google.com/store/apps/details?id=com.aeonian.gita";
-// Map<int, String> intToDay = {
-//   7: "रविवार",
-//   1: "सोमवार",
-//   2: "मंगलवार",
-//   3: "बुधवार",
-//   4: "बृहस्पतिवार",
-//   5: "शुक्रवार",
-//   6: "शनिवार",
-// };
+
+const String rishteyyAppLink =
+    "https://play.google.com/store/apps/details?id=com.aeonian.rishteyy";
+
+const String panchangAppLink =
+    "https://play.google.com/store/apps/details?id=com.aeonian.rishteyy";
+const String iAppName = "Gita";
 
 class Constants {
   static List<PlatformUiSettings> get androidCropSetting {
@@ -334,12 +319,12 @@ class Gradients {
 
 // int appVersion = 28;
 class GlobalVariables {
-  static const int appVersion = 71;
-  static const String appVersionInD = "17.15.71";
-  static const String telErrorChannel = "@rishteyyerrors";
-  static const String telCustomPostChannel = "@rishteyycustom";
-  static const String telEditPostChannel = "@rishteyyedit";
-  static const String telNormalPostChannel = "@rishteyychannel";
+  static const int appVersion = 3;
+  static const String appVersionInD = "1.0.3";
+  static const String telErrorChannel = "@rishteyyved";
+  static const String telCustomPostChannel = "@rishteyyved";
+  static const String telEditPostChannel = "@rishteyyved";
+  static const String telNormalPostChannel = "@rishteyyved";
   static const String telVedPostChannel = "@rishteyyved";
 }
 

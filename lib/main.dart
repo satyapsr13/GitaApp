@@ -1,14 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'Constants/constants.dart';
-import 'Data/services/NotificationServices/notification_services.dart';
 import 'Data/services/secure_storage.dart';
 import 'Logic/block_provider.dart';
 import 'Presentation/app.dart';
@@ -49,6 +45,8 @@ https://www.figma.com/file/CxZT2MEmc8nfBftLjCkOLX/Rishteyy-UI?node-id=0%3A1&t=PL
 
 
 
+
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -56,7 +54,20 @@ Future<void> main() async {
       storageDirectory: await getApplicationDocumentsDirectory());
   // await Firebase.initializeApp();
 
-  NotificationServices().initNotification();
+  // NotificationServices().initNotification();
+  // AwesomeNotifications().initialize(
+  //   'resource://drawable/app_icon', // Your app icon resource
+  //   [
+  //     NotificationChannel(
+  //       channelKey: 'basic_channel',
+  //       channelName: 'Basic notifications',
+  //       channelDescription: 'Notification channel for basic tests',
+  //       defaultColor: Color(0xFF9D50DD),
+  //       ledColor: Colors.white,
+  //       importance: NotificationImportance.High,
+  //     )
+  //   ],
+  // );
 
   // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 

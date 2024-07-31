@@ -21,12 +21,16 @@ class GitaGyanSpecificSlokeScreen extends StatefulWidget {
   // const GitaGyanSpecificSlokeScreen({super.key});
   String chaperNo;
   bool isDataPresent;
+  final bool isFromNotification;
+  int tabIndex;
   FlutterTts flutterTts;
   GitaGyanSpecificSlokeScreen({
     Key? key,
     required this.chaperNo,
     required this.flutterTts,
     this.isDataPresent = false,
+    this.isFromNotification = false,
+    this.tabIndex = 0,
   }) : super(key: key);
 
   @override
@@ -173,7 +177,7 @@ class _GitaGyanSpecificSlokeScreenState
           .fetchGitaPosts(chapter: widget.chaperNo)
           .then((value) {
         _tabController = TabController(
-            initialIndex: 0,
+            initialIndex: widget.tabIndex,
             length: BlocProvider.of<SeriesPostCubit>(context, listen: false)
                 .state
                 .gitaSlokeList
@@ -232,6 +236,15 @@ class _GitaGyanSpecificSlokeScreenState
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                if (widget.isFromNotification) {
+                  nextScreenCloseOthers(context, const GitagyanMainScreen());
+                } else {
+                  Navigator.pop(context);
+                }
+              },
+              icon: const Icon(Icons.arrow_back, size: 20)),
           // centerTitle: true,
           title: Text(
             tr("gita_title"),
@@ -609,7 +622,6 @@ class _GitaGyanSpecificSlokeScreenState
                   onPressed: () {
                     if (_tabController.index != 0) {
                       _tabController.animateTo(_tabController.index - 1);
-                      
                     } else {
                       navigateIfRequired(
                           context: context,

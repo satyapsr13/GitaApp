@@ -94,6 +94,7 @@
   "email_message": "ईमेल संदेश",
   "email_title": "ईमेल",
 
+  "set_notification": "नोटिफिकेशन सेट करे",
   "coming_soon": "जल्दी ही आने वाला है",
   "app_title": "रिश्ते",
   "no_result_found": "कोई परिणाम नहीं मिला",
@@ -148,5 +149,7 @@
   "leaderboard_update_text": "इस लीडरबोर्ड को हर 24 घंटे में उपडेट किया जाता ",
   "add_another_txt": "अन्य टेक्स्ट जोड़े",
   "contact_save_title": "रिश्ते ऐप्प के नंबर को अपने फ़ोन में सेव करे, और कभी भी हमसे जुड़ने का मौका पाए ",
+
+  "_gita_notification_screen_title": "नोटिफिकेशन सेट करे और पाए डेली गीता श्लोक पढ़ने का नोटिफिकेशन",
   "pachang": "पंचांग"
 }
