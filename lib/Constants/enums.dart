@@ -13,6 +13,9 @@ enum Status {
   success,
   failure,
   phoneNumberInvalid, 
+  play,
+  plause,
+  
 
 
 }

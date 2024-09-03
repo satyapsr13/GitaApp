@@ -135,6 +135,12 @@ dependencies:
   # qr_flutter: ^3.2.0
   # barcode_scan_fix:
   awesome_notifications:
+  objectbox: ^4.0.2
+  objectbox_flutter_libs:
+  just_audio:
+  ffmpeg_kit_flutter_min_gpl:
+  video_player: 
+  flutter_ffmpeg:
 
 
 dev_dependencies:
@@ -148,6 +154,8 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   flutter_launcher_icons: ^0.11.0
+  build_runner: ^2.0.0
+  objectbox_generator:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -168,7 +176,7 @@ flutter:
   assets:
     - assets/translation/
     - assets/images/
-    - assets/test/
+    # - assets/test/
     - assets/frames/
     - assets/icons/
 

@@ -1,0 +1,165 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:4471901056465688408",
+      "lastPropertyId": "21:7321022721130727018",
+      "name": "AudioFile",
+      "properties": [
+        {
+          "id": "1:5477818292344183080",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5867312550094444436",
+          "name": "name",
+          "type": 9,
+          "flags": 2048,
+          "indexId": "1:5956324525234558921"
+        },
+        {
+          "id": "3:2062275466082381890",
+          "name": "path",
+          "type": 9
+        },
+        {
+          "id": "4:693067954533559222",
+          "name": "duration",
+          "type": 6
+        },
+        {
+          "id": "5:5545507056469428266",
+          "name": "size",
+          "type": 6
+        },
+        {
+          "id": "6:6182255193760382188",
+          "name": "format",
+          "type": 9
+        },
+        {
+          "id": "9:2300244011379251691",
+          "name": "artist",
+          "type": 9,
+          "flags": 2048,
+          "indexId": "2:3449298043383429454"
+        },
+        {
+          "id": "10:7420960918491421738",
+          "name": "album",
+          "type": 9
+        },
+        {
+          "id": "11:873039571901003159",
+          "name": "genre",
+          "type": 9
+        },
+        {
+          "id": "12:5925975552409633506",
+          "name": "isFavorite",
+          "type": 1
+        },
+        {
+          "id": "16:1543302567038927896",
+          "name": "coverArtUrl",
+          "type": 9
+        },
+        {
+          "id": "17:1407199424025515859",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "19:6202371728171504750",
+          "name": "searchTags",
+          "type": 30
+        },
+        {
+          "id": "21:7321022721130727018",
+          "name": "networkUrl",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:1948515769510826687",
+      "lastPropertyId": "9:7302121679346733337",
+      "name": "VideoFile",
+      "properties": [
+        {
+          "id": "1:6243608334697138915",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4450860890541186071",
+          "name": "title",
+          "type": 9,
+          "flags": 2048,
+          "indexId": "3:8732225482949536735"
+        },
+        {
+          "id": "3:8180993687187253439",
+          "name": "path",
+          "type": 9
+        },
+        {
+          "id": "4:1860968271908533306",
+          "name": "duration",
+          "type": 6
+        },
+        {
+          "id": "5:5592256943627997617",
+          "name": "size",
+          "type": 6
+        },
+        {
+          "id": "6:2595758471417515870",
+          "name": "format",
+          "type": 9
+        },
+        {
+          "id": "7:9018254761138641229",
+          "name": "isFavorite",
+          "type": 1
+        },
+        {
+          "id": "8:3112876068514563766",
+          "name": "networkUrl",
+          "type": 9
+        },
+        {
+          "id": "9:7302121679346733337",
+          "name": "searchTags",
+          "type": 30
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:1948515769510826687",
+  "lastIndexId": "3:8732225482949536735",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    7726640404008113855,
+    5285375156534724269,
+    1231197843708665917,
+    3450150732042490199,
+    6986194406532435412,
+    4777580264213000850,
+    8876320098961581921
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

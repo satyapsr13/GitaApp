@@ -31,6 +31,7 @@ import '../Screens/PostsScreens/PostEditScreenComponents/editor_date_tag_widget.
 import '../Screens/PostsScreens/PostEditScreenComponents/positions_helper_function.dart';
 import '../Screens/PostsScreens/post_edit_screen.dart';
 import '../Screens/PremiumPlanScreens/premium_plan_screen.dart';
+import '../Screens/SeriesPosts/GitsGyanScreens/gita_sloke_specific_post_screen.dart';
 import '../Screens/Tools/premium_wrapper.dart';
 import 'Buttons/ccolor_button.dart';
 import 'Dialogue/dialogue.dart';
@@ -61,8 +62,6 @@ class PostWidget extends StatefulWidget {
 }
 
 class _PostWidgetState extends State<PostWidget> {
-  Uint8List? _imageFile;
-
   double outerBorderRadius = 10;
 
   ScreenshotController screenshotController = ScreenshotController();
@@ -77,7 +76,7 @@ class _PostWidgetState extends State<PostWidget> {
     try {
       extendedHeight =
           (maxWid / 3) - (widget.isModelFrame ? 27 : 17) - (maxWid / 9);
-    } catch (e) {}
+    } catch (_) {}
 
     return GestureDetector(
       onLongPress: () {},
@@ -188,7 +187,35 @@ class _PostWidgetState extends State<PostWidget> {
             padding: const EdgeInsets.only(top: 10, bottom: 10),
             child: Row(
               children: [
-                removeAdsButton(context),
+                // removeAdsButton(context),
+                TextButton(
+                  onPressed: () async {
+                    await screenshotController1
+                        .capture(
+                      delay: const Duration(milliseconds: 2),
+                    )
+                        .onError((error, stackTrace) {
+                      return null;
+                    }).then((capturedImage) async {
+                      if (capturedImage != null) {
+                        final directory =
+                            await getApplicationDocumentsDirectory();
+                        final imagePath = await File(
+                                '${directory.path}/${DateTime.now().millisecondsSinceEpoch}.png')
+                            .create();
+                        await imagePath
+                            .writeAsBytes(capturedImage)
+                            .then((value) {
+                          showSongBottomSheet(context, imagePath.path);
+                        });
+                      }
+                    });
+                  },
+                  child: const Text(
+                    'Add Song',
+                    style: TextStyle(),
+                  ),
+                ),
                 // const Spacer(flex: 5),
                 // editPostButton(
                 //     data: postWidgetData,

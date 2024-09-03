@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:gita/Data/model/ObjectModels/audio_file.dart';
+import 'package:gita/Logic/Cubit/VideoCubit/video_cubit.dart';
+import 'package:gita/Presentation/Screens/Videomaker/video_maker_screen.dart';
+import 'package:gita/Presentation/Widgets/model_bottom_sheet.dart';
 import 'package:gita/Utility/extensions.dart';
-import 'package:logger/logger.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import '../../../../Constants/enums.dart';
@@ -921,4 +924,108 @@ navigateIfRequired(
           isDataPresent: false,
         ));
   }
+}
+
+showSongBottomSheet(BuildContext context, String imagePath) {
+  showCBottomSheet(
+    context: context,
+    height: 500,
+    child: BlocBuilder<VideoCubit, VideoState>(builder: (context, vidState) {
+      return Column(
+        children: [
+          ...List.generate(6, (index) {
+            String url =
+                "https://rishteyy.in/rishteyy/audio/test/${index + 1}.m4a";
+            AudioFile audioFile = AudioFile(
+              id: index,
+              name: index.toString(),
+              path: url,
+              networkUrl: url,
+              duration: 15,
+              size: 15,
+              format: "m4a",
+            );
+
+            return Visibility(
+              visible: false,
+              replacement: AudioTileWidget(file: audioFile,imagePath: imagePath,),
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Stack(
+                      children: [
+                        Visibility(
+                            visible: vidState.audioPlayStatus == Status.loading,
+                            child: const CircularProgressIndicator()),
+                        Text(
+                          '${index + 1}',
+                          style: const TextStyle(),
+                        ),
+                      ],
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        // BlocProvider.of<VideoCubit>(context)
+                        //     .playAudio(audioFile.networkUrl);
+                      },
+                      child: const Text(
+                        'Play music',
+                        style: TextStyle(),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        BlocProvider.of<VideoCubit>(context).pauseAudio();
+                      },
+                      child: const Text(
+                        'Pause',
+                        style: TextStyle(),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        // BlocProvider.of<VideoCubit>(context).pauseAudio();
+                        toast("Upcoming feature");
+                      },
+                      child: const Text(
+                        'Set Song',
+                        style: TextStyle(),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            );
+          })
+          // Builder(
+          //   builder: (context) {
+          //     return Row(
+          //       children: [
+          //         TextButton(
+          //           onPressed: () {
+          //             BlocProvider.of<VideoCubit>(context).playAudio("url");
+          //           },
+          //           child: Text(
+          //             'Play music',
+          //             style: const TextStyle(),
+          //           ),
+          //         ),
+          //         TextButton(
+          //           onPressed: () {
+          //             BlocProvider.of<VideoCubit>(context).pauseAudio();
+          //           },
+          //           child: Text(
+          //             'Pause',
+          //             style: const TextStyle(),
+          //           ),
+          //         )
+          //       ],
+          //     );
+          //   }
+          // ),
+        ],
+      );
+    }),
+  );
 }

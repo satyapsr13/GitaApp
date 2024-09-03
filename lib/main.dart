@@ -6,6 +6,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'Data/services/secure_storage.dart';
+import 'Helpers/objectbox_helpers.dart';
 import 'Logic/block_provider.dart';
 import 'Presentation/app.dart';
 // https://fontawesomeicons.com/flutter/icons
@@ -42,10 +43,6 @@ https://www.figma.com/file/CxZT2MEmc8nfBftLjCkOLX/Rishteyy-UI?node-id=0%3A1&t=PL
 // Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 //   await Firebase.initializeApp();
 // }
-
-
-
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -86,12 +83,14 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
+  var store = await ObjectboxHelper().store;
 
   await EasyLocalization.ensureInitialized();
   final secureStorage = SecureStorage();
   bool isLoggedIn = await secureStorage.hasToken();
 
-  var blocProviders = await getBlocProviders(secureStorage, hydratedStorage);
+  var blocProviders =
+      await getBlocProviders(secureStorage, hydratedStorage, store);
 
   HydratedBlocOverrides.runZoned(
       () => runApp(EasyLocalization(

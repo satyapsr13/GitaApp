@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gita/Logic/Cubit/DpMakerCubit/dpmaker_cubit.dart';
+import 'package:gita/Logic/Cubit/VideoCubit/video_cubit.dart';
+import 'package:gita/objectbox.g.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import '../Data/repositories/localization.dart';
@@ -20,10 +22,8 @@ import 'Cubit/locale_cubit/locale_cubit.dart';
 import 'Cubit/user_cubit/user_cubit.dart';
 // import 'Cubit/video_cubit/video_cubit.dart';
 
-Future<List<BlocProvider>> getBlocProviders(
-    SecureStorage secureStorage, HydratedStorage hydratedStorage) async {
-  // system utilities
-  // final Connectivity connectivity = Connectivity();
+Future<List<BlocProvider>> getBlocProviders(SecureStorage secureStorage,
+    HydratedStorage hydratedStorage, Store store) async {
   final LocaleRepository localeRepository = LocaleRepository();
   final PostRepository postRepository = PostRepository();
   final StickerRepository stickerRepository = StickerRepository();
@@ -39,6 +39,11 @@ Future<List<BlocProvider>> getBlocProviders(
             stickerRepository: stickerRepository,
             userRepository: userRepository,
             toolsRepository: toolsRepository)),
+    BlocProvider<VideoCubit>(
+        create: (context) => VideoCubit(
+              store: store,
+              stickerRepository: stickerRepository,
+            )),
     BlocProvider<DpMakerCubit>(
         create: (context) => DpMakerCubit(
             stickerRepository: stickerRepository,
